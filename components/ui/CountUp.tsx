@@ -1,61 +1,37 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { useInView, motion } from 'framer-motion'
+import { useInView } from 'framer-motion'
 
-interface CountUpProps {
-  end: number
-  duration?: number
-  prefix?: string
-  suffix?: string
-  className?: string
-}
+export function CountUp({ value }: { value: string }) {
+  // Parse "3+" → { num: 3, suffix: "+" }  or  "2" → { num: 2, suffix: "" }
+  const match = value.match(/^(\d+)(.*)$/)
+  const num = match ? parseInt(match[1]) : NaN
+  const suffix = match ? match[2] : ''
 
-export default function CountUp({
-  end,
-  duration = 2,
-  prefix = '',
-  suffix = '',
-  className = '',
-}: CountUpProps) {
-  const [count, setCount] = useState(0)
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true })
-  const hasAnimated = useRef(false)
+  const ref = useRef<HTMLSpanElement>(null)
+  const inView = useInView(ref as React.RefObject<Element>, { once: true })
+  const [display, setDisplay] = useState('0')
 
   useEffect(() => {
-    if (isInView && !hasAnimated.current) {
-      hasAnimated.current = true
-      let startTime: number
-      let animationFrame: number
-
-      const animate = (timestamp: number) => {
-        if (!startTime) startTime = timestamp
-        const progress = Math.min((timestamp - startTime) / (duration * 1000), 1)
-        
-        // Easing function for smooth animation
-        const easeOutQuart = 1 - Math.pow(1 - progress, 4)
-        setCount(Math.floor(easeOutQuart * end))
-
-        if (progress < 1) {
-          animationFrame = requestAnimationFrame(animate)
-        }
-      }
-
-      animationFrame = requestAnimationFrame(animate)
-
-      return () => cancelAnimationFrame(animationFrame)
+    if (!inView) return
+    if (isNaN(num)) {
+      setDisplay(value)
+      return
     }
-  }, [isInView, end, duration])
+    const duration = 1400
+    let start: number | null = null
+    const tick = (ts: number) => {
+      if (!start) start = ts
+      const progress = Math.min((ts - start) / duration, 1)
+      const eased = 1 - Math.pow(1 - progress, 3)
+      setDisplay(Math.round(eased * num).toString() + suffix)
+      if (progress < 1) requestAnimationFrame(tick)
+    }
+    requestAnimationFrame(tick)
+  }, [inView, num, suffix, value])
 
-  return (
-    <motion.span
-      ref={ref}
-      className={className}
-      initial={{ opacity: 0, y: 20 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-    >
-      {prefix}{count}{suffix}
-    </motion.span>
-  )
+  return <span ref={ref}>{display}</span>
 }
+
+export default CountUp

@@ -2,6 +2,11 @@ import { ArrowRight, Download, ExternalLink, Github, Linkedin, Mail } from 'luci
 import type { LucideIcon } from 'lucide-react'
 import { experiences, proofOfWork, projects, resumeLinks, socialLinks, stats } from '@/lib/data'
 import { normalizeExternalUrl } from '@/lib/url'
+import { AnimateIn } from '@/components/ui/AnimateIn'
+import { CountUp } from '@/components/ui/CountUp'
+import { TiltCard } from '@/components/ui/TiltCard'
+import { HeroAurora } from '@/components/ui/HeroAurora'
+import { KineticTitle } from '@/components/ui/KineticTitle'
 
 const navItems = [
   { label: 'Profile', href: '#profile' },
@@ -43,12 +48,12 @@ const chapters = [
   },
 ]
 
-const heroHighlights = ['Open to full-time roles', 'Based in Alberta', 'Product development + practical AI']
+const heroHighlights = ['Open to full-time roles', 'Based in Alberta', 'Product engineering + practical AI']
 
 const heroDetails = [
   {
     label: 'Looking for',
-    value: 'Full-time software developer, full-stack, and AI product roles',
+    value: 'Full-time software engineering, full-stack, and AI product engineering roles',
   },
   {
     label: 'Strongest proof',
@@ -56,7 +61,7 @@ const heroDetails = [
   },
   {
     label: 'Works with',
-    value: 'Next.js, TypeScript, FastAPI, real-time flows, and model-backed features',
+    value: 'Next.js, TypeScript, APIs, real-time flows, and model-backed features',
   },
 ]
 
@@ -69,7 +74,7 @@ const profilePrinciples = [
 const profileSignals = [
   {
     label: 'Current target',
-    value: 'Full-time roles where product judgment and software quality both matter',
+    value: 'Full-time roles where product judgment and engineering standards both matter',
   },
   {
     label: 'Strongest environments',
@@ -147,7 +152,7 @@ export default function Home() {
         <div className="site-nav__inner">
           <a href="#top" className="site-brand">
             <span className="site-brand__name">Felmon Fekadu</span>
-            <span className="site-brand__meta">Product development portfolio</span>
+            <span className="site-brand__meta">Product engineering portfolio</span>
           </a>
 
           <nav className="site-nav__links" aria-label="Primary">
@@ -164,26 +169,28 @@ export default function Home() {
         </div>
       </header>
 
+      {/* ── Hero ─────────────────────────────────── */}
       <section id="top" className="hero">
-        <div className="hero__aurora hero__aurora--left" aria-hidden="true" />
-        <div className="hero__aurora hero__aurora--right" aria-hidden="true" />
+        <HeroAurora />
 
         <div className="hero__content">
-          <p className="eyebrow eyebrow--center">Felmon Fekadu / software developer / full-stack systems</p>
+          <AnimateIn delay={0}>
+            <p className="eyebrow eyebrow--center">Felmon Fekadu / software engineer / full-stack systems</p>
+          </AnimateIn>
 
-          <h1 className="hero__title" aria-label="Felmon Fekadu. Full-stack developer for real products.">
-            <span>Felmon Fekadu.</span>
-            <span>Full-stack developer</span>
-            <span>for real products.</span>
-          </h1>
+          <KineticTitle
+            lines={['Felmon Fekadu.', 'Full-stack engineer', 'for real products.']}
+          />
 
-          <p className="hero__summary">
-            I build model-aware interfaces, real-time systems, and full-stack product workflows
-            that stay readable under real use. The strongest public proof is shipped product work
-            first, then accepted upstream OSS where it exists, with submitted PRs stated plainly.
-          </p>
+          <AnimateIn delay={0.85}>
+            <p className="hero__summary">
+              I build model-aware interfaces, real-time systems, and full-stack product workflows
+              that stay readable under real use. The strongest public proof is shipped product work
+              first, then accepted upstream OSS where it exists, with submitted PRs stated plainly.
+            </p>
+          </AnimateIn>
 
-          <div className="hero__actions">
+          <AnimateIn delay={1.0} className="hero__actions">
             <a href="#profile" className="button button--ghost">
               Read profile
               <ArrowRight size={16} />
@@ -196,17 +203,17 @@ export default function Home() {
               Download resume
               <Download size={16} />
             </a>
-          </div>
+          </AnimateIn>
 
-          <div className="hero__meta" aria-label="Profile highlights">
+          <AnimateIn delay={1.15} className="hero__meta" aria-label="Profile highlights">
             {heroHighlights.map((item) => (
               <span key={item} className="hero-meta-pill">
                 {item}
               </span>
             ))}
-          </div>
+          </AnimateIn>
 
-          <div className="hero__stage" aria-hidden="true">
+          <AnimateIn delay={1.3} className="hero__stage" aria-hidden="true">
             <div className="hero-panel">
               <div className="hero-panel__top">
                 <span className="hero-panel__pill">profile</span>
@@ -234,28 +241,29 @@ export default function Home() {
               <div className="hero-panel__metrics">
                 {stats.slice(0, 3).map((stat) => (
                   <article key={stat.label} className="metric">
-                    <strong>{stat.value}</strong>
+                    <strong><CountUp value={stat.value} /></strong>
                     <span>{stat.label}</span>
                   </article>
                 ))}
               </div>
             </div>
-          </div>
+          </AnimateIn>
         </div>
       </section>
 
+      {/* ── Profile ──────────────────────────────── */}
       <section id="profile" className="profile">
-        <div className="section-heading">
+        <AnimateIn className="section-heading">
           <p className="eyebrow">Profile</p>
           <h2 className="section-heading__title">The profile behind the repositories.</h2>
           <p className="section-heading__copy">
             This should answer the first practical questions quickly: what I build, how I work,
             and the kinds of teams where I&apos;m most useful.
           </p>
-        </div>
+        </AnimateIn>
 
         <div className="profile-grid">
-          <article className="profile-panel profile-panel--intro">
+          <AnimateIn delay={0.1} className="profile-panel profile-panel--intro">
             <p className="eyebrow">Short version</p>
             <h3 className="profile-panel__title">
               I care about products that survive real use, not just polished demos.
@@ -273,9 +281,9 @@ export default function Home() {
                 </span>
               ))}
             </div>
-          </article>
+          </AnimateIn>
 
-          <div className="profile-stack">
+          <AnimateIn delay={0.2} className="profile-stack">
             <article className="profile-panel">
               <p className="eyebrow">Operating principles</p>
               <ul className="profile-list">
@@ -316,125 +324,140 @@ export default function Home() {
                 })}
               </div>
             </article>
-          </div>
+          </AnimateIn>
         </div>
       </section>
 
+      {/* ── Working Style chapters ────────────────── */}
       <section id="story" className="chapters">
-        <div className="section-heading">
+        <AnimateIn className="section-heading">
           <p className="eyebrow">Working Style</p>
           <h2 className="section-heading__title">
             How I work, what I build, and what counts as proof.
           </h2>
           <p className="section-heading__copy">
-            The goal is to make the developer profile legible before you open a single repo:
+            The goal is to make the engineering profile legible before you open a single repo:
             working style, technical range, and evidence standards.
           </p>
-        </div>
+        </AnimateIn>
 
         <div className="chapter-list">
           {chapters.map((chapter, index) => (
             <article key={chapter.title} className="chapter">
-              <div className="chapter__copy">
-                <p className="eyebrow">{`0${index + 1}`} / {chapter.eyebrow}</p>
-                <h2 className="chapter__title">{chapter.title}</h2>
-                <p className="chapter__body">{chapter.copy}</p>
-                <ul className="chapter__points">
-                  {chapter.points.map((point) => (
-                    <li key={point}>{point}</li>
-                  ))}
-                </ul>
-              </div>
+              <AnimateIn
+                delay={0.1}
+                direction={index % 2 === 0 ? 'left' : 'right'}
+              >
+                <div className="chapter__copy">
+                  <p className="eyebrow">{`0${index + 1}`} / {chapter.eyebrow}</p>
+                  <h2 className="chapter__title">{chapter.title}</h2>
+                  <p className="chapter__body">{chapter.copy}</p>
+                  <ul className="chapter__points">
+                    {chapter.points.map((point) => (
+                      <li key={point}>{point}</li>
+                    ))}
+                  </ul>
+                </div>
+              </AnimateIn>
 
-              <div className="chapter__visual">
-                <ChapterStage variant={chapter.variant} />
-              </div>
+              <AnimateIn
+                delay={0.25}
+                direction={index % 2 === 0 ? 'right' : 'left'}
+              >
+                <div className="chapter__visual">
+                  <ChapterStage variant={chapter.variant} />
+                </div>
+              </AnimateIn>
             </article>
           ))}
         </div>
       </section>
 
+      {/* ── Selected Work ─────────────────────────── */}
       <section id="work" className="showcase">
-        <div className="section-heading">
+        <AnimateIn className="section-heading">
           <p className="eyebrow">Selected Work</p>
           <h2 className="section-heading__title">Start with the strongest shipped work.</h2>
           <p className="section-heading__copy">
             The portfolio leads with the best public product proof first, then separates accepted
             upstream work from submitted PRs so the signal stays clean.
           </p>
-        </div>
+        </AnimateIn>
 
         <div className="showcase-list">
           {featuredProjects.map((project, index) => (
             <article key={project.title} className="showcase-card">
-              <div className="showcase-card__frame">
-                <p className="showcase-card__index">0{index + 1}</p>
+              <TiltCard delay={index * 0.15}>
+                <div className="showcase-card__frame">
+                  <p className="showcase-card__index">0{index + 1}</p>
 
-                <div className="showcase-card__body">
-                  <p className="eyebrow">{project.category}</p>
-                  <h3>{project.title}</h3>
-                  <p>{project.description}</p>
+                  <div className="showcase-card__body">
+                    <p className="eyebrow">{project.category}</p>
+                    <h3>{project.title}</h3>
+                    <p>{project.description}</p>
 
-                  <div className="showcase-card__tags">
-                    {project.tech.map((item) => (
-                      <span key={item} className="tag">
-                        {item}
-                      </span>
-                    ))}
+                    <div className="showcase-card__tags">
+                      {project.tech.map((item) => (
+                        <span key={item} className="tag">
+                          {item}
+                        </span>
+                      ))}
+                    </div>
+
+                    <div className="showcase-card__actions">
+                      <a
+                        href={normalizeExternalUrl(project.github)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="button button--ghost"
+                      >
+                        <Github size={16} />
+                        Source
+                      </a>
+                      <a
+                        href={normalizeExternalUrl(project.live)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="button button--primary"
+                      >
+                        <ExternalLink size={16} />
+                        {index === 0 ? 'Live product' : 'Open live app'}
+                      </a>
+                    </div>
                   </div>
 
-                  <div className="showcase-card__actions">
-                    <a
-                      href={normalizeExternalUrl(project.github)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="button button--ghost"
-                    >
-                      <Github size={16} />
-                      Source
-                    </a>
-                    <a
-                      href={normalizeExternalUrl(project.live)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="button button--primary"
-                    >
-                      <ExternalLink size={16} />
-                      {index === 0 ? 'Live product' : 'Open live app'}
-                    </a>
+                  <div className="showcase-card__ghost" aria-hidden="true">
+                    {project.category}
                   </div>
                 </div>
-
-                <div className="showcase-card__ghost" aria-hidden="true">
-                  {project.category}
-                </div>
-              </div>
+              </TiltCard>
             </article>
           ))}
         </div>
       </section>
 
+      {/* ── Proof ─────────────────────────────────── */}
       <section id="proof" className="proof">
         <div className="proof__intro">
-          <div className="section-heading section-heading--tight">
+          <AnimateIn className="section-heading section-heading--tight">
             <p className="eyebrow">Proof</p>
             <h2 className="section-heading__title">Live products first. Upstream work stated honestly.</h2>
-          </div>
+          </AnimateIn>
 
-          <div className="proof__stats">
+          <AnimateIn delay={0.15} className="proof__stats">
             {stats.map((stat) => (
               <article key={stat.label} className="proof-stat">
-                <strong>{stat.value}</strong>
+                <strong><CountUp value={stat.value} /></strong>
                 <span>{stat.label}</span>
               </article>
             ))}
-          </div>
+          </AnimateIn>
         </div>
 
         <div className="proof__grid">
           <div className="proof__commits">
-            {proofOfWork.map((item) => (
-              <article key={item.url} className="proof-line">
+            {proofOfWork.map((item, i) => (
+              <AnimateIn key={item.url} as="article" delay={i * 0.08} className="proof-line">
                 <div>
                   <p className="eyebrow">{item.kind}</p>
                   <h3>{item.label}</h3>
@@ -445,67 +468,76 @@ export default function Home() {
                   {item.cta}
                   <ExternalLink size={16} />
                 </a>
-              </article>
+              </AnimateIn>
             ))}
           </div>
 
           <div className="proof__timeline">
-            {recentExperience.map((item) => (
-              <article key={`${item.title}-${item.period}`} className="timeline-item">
+            {recentExperience.map((item, i) => (
+              <AnimateIn
+                key={`${item.title}-${item.period}`}
+                as="article"
+                delay={i * 0.1}
+                direction="right"
+                className="timeline-item"
+              >
                 <p className="eyebrow">{item.period}</p>
                 <h3>{item.title}</h3>
                 <p className="timeline-item__meta">
                   {item.company} / {item.location}
                 </p>
                 <p>{item.description[0]}</p>
-              </article>
+              </AnimateIn>
             ))}
           </div>
         </div>
       </section>
 
+      {/* ── Contact ───────────────────────────────── */}
       <section id="contact" className="contact">
-        <div className="contact__panel">
-          <p className="eyebrow eyebrow--center">Contact</p>
-          <h2 className="contact__title">For the teams you&apos;re headed toward.</h2>
-          <p className="contact__copy">
-            I&apos;m looking for environments where product judgment and software quality both
-            matter in full-time product and developer work. If that&apos;s the bar, send me the problem.
-          </p>
+        <AnimateIn>
+          <div className="contact__panel">
+            <p className="eyebrow eyebrow--center">Contact</p>
+            <h2 className="contact__title">For the teams you&apos;re headed toward.</h2>
+            <p className="contact__copy">
+              I&apos;m looking for environments where product judgment and engineering standards both
+              matter in full-time engineering work. If that&apos;s the bar, send me the problem.
+            </p>
 
-          <div className="contact__actions">
-            {resumeLinks.map((resume) => (
-              <a key={resume.name} href={resume.url} className="button button--secondary" download>
-                {resume.name}
-              </a>
-            ))}
-          </div>
-
-          <div className="contact__links">
-            {socialLinks.map((item) => {
-              const Icon = socialIconMap[item.icon] ?? Mail
-              const isExternal = item.url.startsWith('http')
-
-              return (
-                <a
-                  key={item.name}
-                  href={item.url}
-                  target={isExternal ? '_blank' : undefined}
-                  rel={isExternal ? 'noopener noreferrer' : undefined}
-                  className="contact-link"
-                >
-                  <Icon size={16} />
-                  {item.name}
+            <div className="contact__actions">
+              {resumeLinks.map((resume) => (
+                <a key={resume.name} href={resume.url} className="button button--secondary" download>
+                  {resume.name}
                 </a>
-              )
-            })}
+              ))}
+            </div>
+
+            <div className="contact__links">
+              {socialLinks.map((item) => {
+                const Icon = socialIconMap[item.icon] ?? Mail
+                const isExternal = item.url.startsWith('http')
+
+                return (
+                  <a
+                    key={item.name}
+                    href={item.url}
+                    target={isExternal ? '_blank' : undefined}
+                    rel={isExternal ? 'noopener noreferrer' : undefined}
+                    className="contact-link"
+                  >
+                    <Icon size={16} />
+                    {item.name}
+                  </a>
+                )
+              })}
+            </div>
           </div>
-        </div>
+        </AnimateIn>
       </section>
 
       <footer className="site-footer">
         <p>Felmon Fekadu</p>
-        <p>Profile-first portfolio / Next.js / product development focus</p>
+        <p>Profile-first portfolio / Next.js / product engineering focus</p>
       </footer>
     </main>
   )

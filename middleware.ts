@@ -1,47 +1,45 @@
 import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
 
-const realm = 'Private Portfolio'
+const ACCESS_COOKIE_NAME = 'portfolio_access'
 
-function unauthorized() {
-  return new NextResponse('Authentication required.', {
-    status: 401,
-    headers: {
-      'WWW-Authenticate': `Basic realm="${realm}", charset="UTF-8"`,
-      'Cache-Control': 'private, no-store',
-    },
-  })
+const PUBLIC_PATH_PREFIXES = ['/access', '/api/access', '/_next']
+const PUBLIC_PATHS = new Set(['/favicon.ico'])
+
+function normalizeCredential(value: string | undefined) {
+  return value?.trim() ?? ''
 }
 
-function readBasicAuthCredentials(authorization: string | null) {
-  if (!authorization?.startsWith('Basic ')) {
-    return null
+function isPublicPath(pathname: string) {
+  if (PUBLIC_PATHS.has(pathname)) {
+    return true
   }
 
-  const encoded = authorization.slice('Basic '.length)
-
-  try {
-    const decoded = atob(encoded)
-    const separatorIndex = decoded.indexOf(':')
-
-    if (separatorIndex === -1) {
-      return null
-    }
-
-    return {
-      username: decoded.slice(0, separatorIndex),
-      password: decoded.slice(separatorIndex + 1),
-    }
-  } catch {
-    return null
-  }
+  return PUBLIC_PATH_PREFIXES.some((prefix) => pathname.startsWith(prefix))
 }
 
-export function middleware(request: NextRequest) {
-  const username = process.env.BASIC_AUTH_USERNAME?.trim()
-  const password = process.env.BASIC_AUTH_PASSWORD?.trim()
+function getSafeRedirectPath(value: string | null) {
+  if (!value || !value.startsWith('/') || value.startsWith('//')) {
+    return '/'
+  }
 
-  if (!username || !password) {
+  return value
+}
+
+async function createAccessToken(username: string, password: string) {
+  const payload = new TextEncoder().encode(`portfolio:${username}:${password}`)
+  const digest = await crypto.subtle.digest('SHA-256', payload)
+
+  return Array.from(new Uint8Array(digest), (value) => value.toString(16).padStart(2, '0')).join(
+    ''
+  )
+}
+
+export async function middleware(request: NextRequest) {
+  const configuredUsername = normalizeCredential(process.env.BASIC_AUTH_USERNAME)
+  const configuredPassword = normalizeCredential(process.env.BASIC_AUTH_PASSWORD)
+
+  if (!configuredUsername || !configuredPassword) {
     return new NextResponse('Site access is not configured.', {
       status: 503,
       headers: {
@@ -50,17 +48,27 @@ export function middleware(request: NextRequest) {
     })
   }
 
-  const credentials = readBasicAuthCredentials(request.headers.get('authorization'))
+  const { pathname, search } = request.nextUrl
+  const expectedToken = await createAccessToken(configuredUsername, configuredPassword)
+  const sessionToken = request.cookies.get(ACCESS_COOKIE_NAME)?.value
 
-  if (!credentials) {
-    return unauthorized()
+  if (isPublicPath(pathname)) {
+    if (pathname === '/access' && sessionToken === expectedToken) {
+      const nextPath = getSafeRedirectPath(request.nextUrl.searchParams.get('next'))
+      return NextResponse.redirect(new URL(nextPath, request.url))
+    }
+
+    return NextResponse.next()
   }
 
-  if (credentials.username !== username || credentials.password !== password) {
-    return unauthorized()
+  if (sessionToken === expectedToken) {
+    return NextResponse.next()
   }
 
-  return NextResponse.next()
+  const redirectUrl = new URL('/access', request.url)
+  redirectUrl.searchParams.set('next', `${pathname}${search}`)
+
+  return NextResponse.redirect(redirectUrl)
 }
 
 export const config = {

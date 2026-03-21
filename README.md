@@ -2,11 +2,44 @@
 
 Engineering portfolio site built to present case-study style project work, open-source contributions, and tailored resume variants in one place.
 
-**Live site:** https://www.felmonfekadu.com/
+**Live site:** [felmonfekadu.com](https://www.felmonfekadu.com/)
 
 ![Felmon Fekadu portfolio preview](public/images/felmon-portrait.jpg)
 
-## What it includes
+---
+
+## Engineering Impact
+
+| Project | What I Built |
+|---|---|
+| **[DocAgent Studio](https://github.com/FelmonFekadu/docagent-studio)** | Local-first RAG engine with verifiable citations, hybrid retrieval, and GraphRAG-style index |
+| **[Jungian Typology Assessment](https://github.com/FelmonFekadu/jungian-typology-assessment)** | Full-stack assessment product with Stripe monetization (3-tier pricing), Supabase auth, and Gemini-powered analysis |
+| **[CompetencyArcEngine](https://github.com/FelmonFekadu/CompetencyArcEngine)** | Hierarchical multi-agent system with confidence-based routing, homeostasis loops, and morphogenetic memory |
+| **[NeuroFlow](https://github.com/FelmonFekadu/neuroflow)** | ADHD-specific productivity app — an external prefrontal cortex with AI task breakdown |
+
+---
+
+## Tech Stack
+
+**Frontend:** React 18, TypeScript, Next.js 14, Tailwind CSS, Framer Motion
+**Backend / Services:** Python, Supabase, Stripe
+**Tooling:** Vitest, ESLint, GitHub Actions CI/CD, Vercel
+
+---
+
+## Featured Projects
+
+- **[DocAgent Studio](https://github.com/FelmonFekadu/docagent-studio)** — Local-first personal docs assistant (PDF + Notion + Markdown) with citations and MLX LoRA fine-tuning
+- **[Jungian Typology Assessment](https://github.com/FelmonFekadu/jungian-typology-assessment)** — Live psychological assessment product with 40-question engine, Stripe billing, and Gemini-powered analysis
+- **[CompetencyArcEngine](https://github.com/FelmonFekadu/CompetencyArcEngine)** — Hierarchical multi-agent system inspired by Michael Levin's competency research
+- **[NeuroFlow](https://github.com/FelmonFekadu/neuroflow)** — ADHD-specific productivity app built with Next.js 16, React 19, Supabase, and Zustand
+- **[AI Speech Coach](https://github.com/FelmonFekadu/ai-speech-coach)** — Real-time AI speech coaching with live video feedback (Tavus CVI, Claude, Next.js)
+- **[Collab Editor](https://github.com/FelmonFekadu/collab-editor)** — Real-time collaborative document editor with Next.js, Tiptap, Socket.io, and PostgreSQL
+- **[Constitutional Playground](https://github.com/FelmonFekadu/constitutional-playground)** — Interactive playground for Constitutional AI critique-revision loops
+
+---
+
+## What this portfolio includes
 
 - Desktop-first portfolio experience with smooth scroll-driven animations
 - Case-study sections for flagship products, OSS contributions, and proof of engineering execution
@@ -16,7 +49,7 @@ Engineering portfolio site built to present case-study style project work, open-
 - Dark/light theme toggle
 - CI/CD pipeline with automated tests, lint, and Vercel production deploys on every push to `main`
 
-## Stack
+## Stack Details
 
 | Layer | Technology |
 |---|---|

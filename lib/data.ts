@@ -152,96 +152,183 @@ export const projects = [
     ],
   },
   {
-    title: 'commaai/opendbc PR',
-    tagline: 'Merged upstream testing contribution in a public open-source codebase.',
+    title: 'DocAgent Studio',
+    tagline: 'Local-first document QA with hybrid retrieval and citation-grounded answers.',
     description:
-      'Merged upstream PR improving car test cache hypothesis strategies in a public open-source codebase.',
-    tech: ['Testing', 'OSS', 'Verification'],
-    category: 'Accepted Upstream PR',
+      'Local-first document QA with hybrid retrieval (SQLite FTS5 + vector embeddings), citation-grounded answers via local Ollama models, GraphRAG entity navigation, and offline evaluation for retrieval recall and citation coverage.',
+    tech: ['Python', 'FastAPI', 'SQLite', 'FTS5', 'Embeddings', 'GraphRAG'],
+    category: 'Local-First AI',
+    image: '/images/project-jungian.png',
+    github: 'https://github.com/felmonon/docagent-studio',
+    live: 'https://github.com/felmonon/docagent-studio',
+    featured: true,
+    caseStudy: true,
+    problem:
+      'Document QA tools either require cloud APIs or sacrifice retrieval quality. A local-first system needs hybrid retrieval, citation grounding, and offline evaluation without external dependencies.',
+    solution:
+      'Built a local-first RAG system combining SQLite FTS5 full-text search with vector embeddings for hybrid retrieval, citation-grounded answers via Ollama, and GraphRAG for entity navigation.',
+    architecture:
+      'Python with FastAPI, SQLite for persistence and FTS5 for full-text search, sentence-transformers for embeddings, Ollama for local LLM inference, and a GraphRAG entity index.',
+    constraints:
+      'Everything runs locally with no cloud dependencies. Retrieval quality and citation coverage must be measurable through offline evaluation.',
+    outcome:
+      'Shipped as an open-source local-first document QA system with hybrid retrieval, citation grounding, and measurable evaluation metrics.',
+    imageGradient: 'linear-gradient(135deg, #065f46 0%, #047857 100%)',
+    ctaLabel: 'View source',
+    secondaryHref: 'https://github.com/felmonon/docagent-studio',
+    secondaryLabel: 'Inspect source',
+    proofItems: [
+      'Hybrid retrieval: SQLite FTS5 + vector embeddings',
+      'Citation-grounded answers via local Ollama models',
+      'GraphRAG entity navigation',
+      'Offline evaluation for retrieval recall and citation coverage',
+    ],
+  },
+  {
+    title: 'openai/openai-agents-python',
+    tagline: "Fixed race condition and clarified streaming docs in OpenAI's agent framework.",
+    description:
+      'Fixed a race condition in SQLAlchemy session writes causing data loss under concurrent agent workloads. Clarified streaming docs for cancel-after-turn behavior.',
+    tech: ['Python', 'SQLAlchemy', 'Agent Frameworks', 'OSS'],
+    category: 'Merged PR',
+    image: '/images/project-langchain.png',
+    github: 'https://github.com/openai/openai-agents-python/pull/2725',
+    live: 'https://github.com/openai/openai-agents-python/pull/2725',
+    featured: false,
+    caseStudy: true,
+    problem:
+      'Concurrent agent workloads were losing data due to a race condition in SQLAlchemy session writes, and streaming cancellation behavior was undocumented.',
+    solution:
+      'Identified and fixed the race condition in session writes and authored documentation clarifying cancel-after-turn streaming behavior.',
+    architecture:
+      "Python with SQLAlchemy inside OpenAI's open-source agent framework, requiring understanding of concurrent session management.",
+    constraints:
+      'Changes had to be backwards-compatible, minimal in scope, and pass the existing test suite in a high-traffic open-source project.',
+    outcome:
+      'Both PRs accepted upstream in March 2026, fixing data loss for concurrent agent workloads.',
+    imageGradient: 'linear-gradient(135deg, #1e3a8a 0%, #4338ca 100%)',
+    ctaLabel: 'Open merged PR',
+    secondaryHref: 'https://github.com/openai/openai-agents-python/pull/2710',
+    secondaryLabel: 'Open docs PR',
+    proofItems: [
+      'Merged March 2026',
+      'Fixed data loss race condition in SQLAlchemy sessions',
+      'Clarified streaming cancel-after-turn docs',
+      'Accepted upstream in openai/openai-agents-python',
+    ],
+  },
+  {
+    title: 'mswjs/msw',
+    tagline: 'Fixed open handles and type errors in the most-used API mocking library.',
+    description:
+      'Fixed open handles from infinite delays in Node.js causing test suites to hang. Fixed RequestHandler type not accepted in setup functions. Shipped in v2.12.11.',
+    tech: ['TypeScript', 'Node.js', 'Testing', 'OSS'],
+    category: 'Merged PR',
+    image: '/images/project-langchain.png',
+    github: 'https://github.com/mswjs/msw/pull/2669',
+    live: 'https://github.com/mswjs/msw/pull/2669',
+    featured: false,
+    caseStudy: true,
+    problem:
+      'Infinite delays in MSW handlers left open handles in Node.js, causing test suites to hang. A type mismatch also prevented RequestHandler from being accepted in setup functions.',
+    solution:
+      'Fixed the open handle leak from infinite delays and resolved the RequestHandler type constraint in setup functions.',
+    architecture:
+      'TypeScript library internals in a project used by 200k+ downstream projects, requiring careful backwards-compatible changes.',
+    constraints:
+      'Fixes had to ship without breaking any of the 200k+ projects depending on MSW, and pass the full test suite.',
+    outcome:
+      'Both fixes merged and shipped in MSW v2.12.11.',
+    imageGradient: 'linear-gradient(135deg, #7c2d12 0%, #991b1b 100%)',
+    ctaLabel: 'Open merged PR',
+    secondaryHref: 'https://github.com/mswjs/msw/pull/2676',
+    secondaryLabel: 'Open type fix PR',
+    proofItems: [
+      'Shipped in MSW v2.12.11',
+      'Used by 200k+ projects',
+      'Fixed Node.js open handle leak',
+      'Fixed RequestHandler type constraint',
+    ],
+  },
+  {
+    title: 'withastro/astro',
+    tagline: 'Fixed language server completion deferral bug in the Astro framework.',
+    description:
+      'Fixed language server incorrectly deferring HTML expression completions to TypeScript plugin. 1 merged, 4 open PRs across type system, accessibility audit, and image tooling.',
+    tech: ['TypeScript', 'Language Server', 'Developer Tools', 'OSS'],
+    category: 'Merged PR',
+    image: '/images/project-langchain.png',
+    github: 'https://github.com/withastro/astro/pull/15927',
+    live: 'https://github.com/withastro/astro/pull/15927',
+    featured: false,
+    caseStudy: true,
+    problem:
+      'The Astro language server was incorrectly deferring HTML expression completions to the TypeScript plugin, breaking developer experience in .astro files.',
+    solution:
+      'Fixed the completion deferral logic in the language server, with additional PRs open for type system, accessibility, and image tooling improvements.',
+    architecture:
+      'TypeScript language server protocol implementation inside the Astro framework monorepo.',
+    constraints:
+      'Language server changes must handle edge cases across all Astro template expressions without regressing existing completions.',
+    outcome:
+      '1 PR merged, 4 additional PRs open across type system, accessibility audit, and image tooling.',
+    imageGradient: 'linear-gradient(135deg, #4c1d95 0%, #6d28d9 100%)',
+    ctaLabel: 'Open merged PR',
+    secondaryHref: 'https://github.com/withastro/astro',
+    secondaryLabel: 'Open repository',
+    proofItems: [
+      '1 merged, 4 open PRs',
+      'Language server completion fix',
+      'Type system, a11y, and image tooling contributions',
+      'Active contributor to Astro framework',
+    ],
+  },
+  {
+    title: 'commaai/opendbc & openpilot',
+    tagline: "Optimized CI and added fuzz testing across comma.ai's automotive stack.",
+    description:
+      'Optimized CI by caching Hypothesis strategies in car model tests. Open PR adding fuzz testing for openpilot TX against panda on replayed routes.',
+    tech: ['Python', 'Testing', 'Robotics/Automotive', 'OSS'],
+    category: 'Merged PR',
     image: '/images/project-langchain.png',
     github: 'https://github.com/commaai/opendbc/pull/3052',
     live: 'https://github.com/commaai/opendbc/pull/3052',
     featured: false,
     caseStudy: true,
     problem:
-      'Public proof is stronger when it includes reviewed code in somebody else’s codebase, not just self-published projects. That means finding a concrete issue and making a change that can survive review.',
+      'CI was slow due to regenerating Hypothesis strategies on every run, and TX message handling lacked fuzz test coverage against real route data.',
     solution:
-      'Authored a focused upstream pull request improving cache hypothesis strategies in commaai/opendbc with test-backed changes and a narrow, reviewable scope.',
+      'Cached Hypothesis strategies in car model tests to speed up CI, and authored fuzz testing for openpilot TX against panda on replayed routes.',
     architecture:
-      'Python testing and verification work inside an established open-source repository with maintainer review and existing project standards.',
+      "Python testing infrastructure across comma.ai's opendbc and openpilot repositories for autonomous driving.",
     constraints:
-      'The contribution had to be technically correct, easy to review, and precise enough to fit an existing upstream codebase without overclaiming impact.',
+      'Test changes had to integrate with existing CI pipelines and maintain deterministic behavior across car model variants.',
     outcome:
-      'Merged upstream on January 27, 2026, giving public proof of reviewable engineering work outside my own repositories.',
+      'Merged in opendbc with CI speedup; open PR in openpilot for fuzz testing on replayed routes.',
     imageGradient: 'linear-gradient(135deg, #7c2d12 0%, #991b1b 100%)',
     ctaLabel: 'Open merged PR',
-    secondaryHref: 'https://github.com/commaai/opendbc',
-    secondaryLabel: 'Open repository',
+    secondaryHref: 'https://github.com/commaai/openpilot/pull/37726',
+    secondaryLabel: 'Open openpilot PR',
     proofItems: [
-      'Merged January 27, 2026',
-      'Public maintainer review and accepted diff',
-      'Test-backed cache hypothesis change',
-      'Proof inside an upstream codebase, not self-published work',
+      'Merged in commaai/opendbc',
+      'Open PR in commaai/openpilot',
+      'CI optimization via Hypothesis caching',
+      'Fuzz testing for TX against panda on replayed routes',
     ],
-  },
-  {
-    title: 'Minecraft Web Client PR',
-    description:
-      'Submitted chunk caching and geometry caching changes for the upstream web client. Status: open, not merged.',
-    tech: ['TypeScript', 'Web Performance', 'Caching', 'OSS'],
-    category: 'Submitted Upstream PR',
-    image: '/images/project-minecraft.png',
-    github: 'https://github.com/zardoy/minecraft-web-client/pull/477',
-    live: 'https://github.com/zardoy/minecraft-web-client/pull/477',
-    featured: false,
-  },
-  {
-    title: 'LangChain.js PR',
-    description:
-      'Submitted structured output validation and test coverage improvements. Status: closed, not merged.',
-    tech: ['TypeScript', 'Testing', 'LLM Tooling', 'OSS'],
-    category: 'Submitted Upstream PR',
-    image: '/images/project-langchain.png',
-    github: 'https://github.com/langchain-ai/langchainjs/pull/9834',
-    live: 'https://github.com/langchain-ai/langchainjs/pull/9834',
-    featured: false,
-  },
-  {
-    title: 'ComfyUI Frontend PR',
-    description:
-      'Submitted a dialog interaction fix so Escape closes only the active dialog. Status: closed, not merged.',
-    tech: ['TypeScript', 'Vue', 'Frontend UX', 'OSS'],
-    category: 'Submitted Upstream PR',
-    image: '/images/project-comfy.png',
-    github: 'https://github.com/Comfy-Org/ComfyUI_frontend/pull/8190',
-    live: 'https://github.com/Comfy-Org/ComfyUI_frontend/pull/8190',
-    featured: false,
-  },
-  {
-    title: 'Screenpipe PR',
-    description:
-      'Submitted multi-monitor capture support with dynamic monitor detection. Status: closed, not merged.',
-    tech: ['Rust', 'Systems', 'CLI', 'OSS'],
-    category: 'Submitted Upstream PR',
-    image: '/images/project-screenpipe.png',
-    github: 'https://github.com/screenpipe/screenpipe/pull/2063',
-    live: 'https://github.com/screenpipe/screenpipe/pull/2063',
-    featured: false,
   },
 ]
 
 export const experiences = [
   {
-    title: 'Open-Source PR Author',
-    company: 'commaai/opendbc + selected upstream repos',
+    title: 'Open-Source Contributor',
+    company: 'OpenAI, MSW, Astro, comma.ai',
     location: 'Remote',
     period: '2026 - Present',
     description: [
-      'Authored and submitted upstream fixes and feature PRs across TypeScript and Rust codebases.',
-      'One public upstream PR is merged in commaai/opendbc; additional proposals remain open or closed.',
-      'Built test-backed changes, UI behavior fixes, and systems features while adapting to maintainer feedback.',
+      'Contributing upstream fixes to OpenAI, MSW, Astro, and comma.ai.',
+      'Fixing race conditions, type system bugs, test infrastructure, and developer tooling in codebases used by hundreds of thousands of developers.',
     ],
-    tech: ['TypeScript', 'Rust', 'Testing', 'Open Source'],
+    tech: ['Python', 'TypeScript', 'Testing', 'Open Source'],
   },
   {
     title: 'Safety Watch / Fire Watch',
@@ -249,11 +336,10 @@ export const experiences = [
     location: 'Fort McMurray / Northern Alberta',
     period: '2022 - 2024',
     description: [
-      'Monitored high-risk operations and executed emergency response procedures at industrial sites.',
-      'Tracked atmospheric readings and maintained compliance and incident logs.',
-      'Coordinated with operations and technical teams in rotational camp environments.',
+      'Safety operations in industrial environments.',
+      'Atmospheric monitoring, compliance documentation, and emergency response coordination across Northern Alberta energy sites.',
     ],
-    tech: ['Safety Operations', 'Incident Logging', 'Team Coordination'],
+    tech: ['Safety Operations', 'Compliance', 'Emergency Response'],
   },
   {
     title: 'Mobile Security Patrol Officer',
@@ -261,36 +347,33 @@ export const experiences = [
     location: 'Calgary, AB',
     period: '2020 - 2022',
     description: [
-      'Conducted facility patrols and documented incidents using digital reporting systems.',
-      'Responded to alarms and coordinated with dispatch and emergency services.',
+      'Mobile patrol operations, incident response, and access control for commercial and residential sites.',
     ],
-    tech: ['Operations', 'Reporting', 'Response Procedures'],
+    tech: ['Operations', 'Incident Response', 'Access Control'],
   },
   {
-    title: 'B.S. Computer Science Student',
+    title: 'B.S. Computer Science',
     company: 'University of the People',
     location: 'Online',
     period: 'Expected 2026',
     description: [
-      'Focused on software engineering, algorithms, systems, and full-stack development.',
-      'Built portfolio projects spanning real-time systems, API design, and AI integrations.',
-      'Named to the UoPeople Honors List for Term 2, 2025-2026.',
+      'Bachelor of Science, Computer Science. Honors List.',
     ],
-    tech: ['Computer Science', 'Software Engineering', 'Project-Based Learning'],
+    tech: ['Computer Science', 'Software Engineering'],
   },
 ]
 
 export const stats = [
-  { label: 'Live Products', value: '2' },
-  { label: 'Accepted Upstream PRs', value: '1' },
-  { label: 'Submitted Upstream PRs', value: '4' },
+  { label: 'Shipped Products', value: '3' },
+  { label: 'Merged PRs', value: '6' },
+  { label: 'OSS Pull Requests', value: '14' },
   { label: 'Years Building', value: '3+' },
 ]
 
 export const heroSection = {
   eyebrow: 'Full-stack software engineer',
   summary:
-    'I build full-stack products with authentication, payments, real-time collaboration, and model-powered features. The strongest signal is public proof you can inspect: live apps, public repositories, and accepted upstream OSS where it exists.',
+    'I build full-stack products with authentication, payments, real-time collaboration, and AI-powered workflows. The strongest signal is public proof you can inspect: live apps, public repositories, and six merged PRs across OpenAI, MSW, Astro, and comma.ai.',
   stackFocus: ['React', 'TypeScript', 'Node.js', 'Python', 'PostgreSQL', 'AI / LLM'],
   architectureNodes: [
     { label: 'Frontend', color: '#7FB38A', delay: 0, indent: 0 },
@@ -303,19 +386,19 @@ export const heroSection = {
 
 export const proofBarItems = [
   {
-    value: '2',
-    label: 'Live Products',
-    description: 'Auth, billing, sync, and persistence in public apps',
+    value: '3',
+    label: 'Shipped Products',
+    description: 'TypeJung, Collab Editor, and DocAgent Studio',
   },
   {
-    value: '1',
-    label: 'Accepted Upstream PR',
-    description: 'Maintainer-reviewed merge in commaai/opendbc',
+    value: '6',
+    label: 'Merged PRs',
+    description: 'Accepted upstream in OpenAI, MSW, Astro, and comma.ai',
   },
   {
-    value: '4',
-    label: 'Submitted Upstream PRs',
-    description: 'Public proposals across TS, Python, and Rust repos',
+    value: '14',
+    label: 'OSS Pull Requests',
+    description: 'Merged and open PRs across major open-source projects',
   },
   {
     value: '3+',
@@ -328,14 +411,14 @@ export const aboutSection = {
   meta: [
     { label: 'Location', value: 'Alberta, Canada' },
     { label: 'Education', value: 'B.S. Computer Science' },
-    { label: 'Focus', value: 'Full-stack, real-time systems, AI features' },
-    { label: 'Seeking', value: 'Full-time software engineering roles' },
+    { label: 'Focus', value: 'Full-stack, real-time systems, AI/ML tooling' },
+    { label: 'Seeking', value: 'Software engineering roles' },
   ],
   title: 'Building systems that solve real problems',
   paragraphs: [
-    'I’m Felmon Fekadu, a software engineer building full-stack products, real-time collaboration tools, and model-powered workflows with an emphasis on clear interfaces, durable implementation, and inspectable proof.',
-    'My strongest evidence is public and concrete: shipped product work in TypeJung and Collab Editor, plus accepted and submitted upstream contributions that are labeled exactly as they are.',
-    'I’m looking for full-time roles where product judgment and engineering discipline both matter, especially teams shipping real software with high ownership and clear review standards.',
+    'I\u2019m Felmon Fekadu, a software engineer in Calgary building full-stack products, real-time systems, and AI-powered workflows. I ship code with clear interfaces, tested behavior, and public proof.',
+    'My strongest evidence is public and verifiable: shipped products at typejung.com and collab-editor-sand.vercel.app, a local-first RAG system in docagent-studio, and six merged pull requests across OpenAI, MSW, Astro, and comma.ai.',
+    'I\u2019m looking for engineering roles where product judgment and technical discipline both matter \u2014 teams shipping real software with high ownership and clear review standards.',
   ],
   principles: [
     ['Clear interfaces', 'Make the product understandable before making it clever.'],
@@ -378,12 +461,12 @@ export const engineeringDecisions = [
     icon: 'shield',
     title: 'Public review is part of the proof',
     copy:
-      'Open-source contributions force precision. The claim only counts if the code can survive review in someone else’s codebase.',
-    exampleTitle: 'Example: commaai/opendbc PR',
+      'Open-source contributions force precision. Six merged PRs across OpenAI, MSW, Astro, and comma.ai — each surviving maintainer review in codebases used by thousands.',
+    exampleTitle: 'Example: OpenAI, MSW, Astro, comma.ai',
     bullets: [
-      'Targeted testing improvement instead of a vague contribution claim.',
-      'Public maintainer review and accepted merge outcome.',
-      'Submitted PRs elsewhere are labeled accurately when not merged.',
+      'Race condition fixes, type system bugs, and test infrastructure improvements.',
+      'Public maintainer review and accepted merge outcomes across 4 organizations.',
+      'Contributions to projects used by 200k+ downstream dependents.',
     ],
     footer: 'Reviewed code in public repositories is stronger proof than self-description.',
   },
@@ -393,23 +476,23 @@ export const journeyTimeline = [
   {
     year: '2026',
     type: 'milestone',
-    title: 'Open to full-time engineering roles',
+    title: 'Open to engineering roles',
     description:
-      'Targeting full-time software engineering, full-stack, and AI product roles where product judgment and engineering standards both matter.',
+      'Seeking software engineering roles where product judgment and technical discipline both matter.',
   },
   {
     year: '2026',
     type: 'project',
-    title: 'Merged upstream PR in commaai/opendbc',
+    title: '6 merged PRs across OpenAI, MSW, Astro, and comma.ai',
     description:
-      'Accepted public contribution improving cache hypothesis strategies with test-backed changes in an upstream codebase.',
+      'Upstream contributions fixing race conditions, type system bugs, test infrastructure, and developer tooling in codebases used by hundreds of thousands of developers.',
   },
   {
     year: '2026',
     type: 'project',
-    title: 'Shipped public portfolio products',
+    title: 'Shipped 3 products: TypeJung, Collab Editor, DocAgent Studio',
     description:
-      'TypeJung and Collab Editor provide public proof of product engineering, real-time systems work, and model-powered features.',
+      'Full-stack products with authentication, payments, real-time collaboration, and local-first AI-powered document QA.',
   },
   {
     year: '2025-2026',
@@ -438,46 +521,46 @@ export const contactSection = {
   eyebrow: "Let's work together",
   title: 'Looking for an engineer who can build, learn fast, and own outcomes?',
   summary:
-    'I’m interested in full-time roles where I can contribute to real products, grow under strong engineers, and keep shipping software that holds up under real use.',
+    'I\u2019m interested in engineering roles where I can contribute to real products, grow under strong engineers, and keep shipping software that holds up under real use.',
   footerLocation: 'Alberta, Canada',
   footerAvailability: 'Open to relocation / remote-friendly',
 }
 
 export const proofOfWork = [
   {
-    label: 'commaai/opendbc - cache hypothesis strategies',
+    label: 'openai/openai-agents-python - race condition fix + streaming docs',
+    status: 'Merged, March 2026',
+    kind: 'Merged PR',
+    cta: 'Open merged PR',
+    url: 'https://github.com/openai/openai-agents-python/pull/2725',
+  },
+  {
+    label: 'mswjs/msw - open handle fix + RequestHandler type fix',
+    status: 'Merged, shipped in v2.12.11',
+    kind: 'Merged PR',
+    cta: 'Open merged PR',
+    url: 'https://github.com/mswjs/msw/pull/2669',
+  },
+  {
+    label: 'withastro/astro - language server completion fix',
+    status: 'Merged, 4 additional PRs open',
+    kind: 'Merged PR',
+    cta: 'Open merged PR',
+    url: 'https://github.com/withastro/astro/pull/15927',
+  },
+  {
+    label: 'commaai/opendbc - CI cache optimization',
     status: 'Merged on January 27, 2026',
-    kind: 'Accepted upstream PR',
+    kind: 'Merged PR',
     cta: 'Open merged PR',
     url: 'https://github.com/commaai/opendbc/pull/3052',
   },
   {
-    label: 'LangChain.js - structured output validation',
-    status: 'Closed, not merged',
-    kind: 'Submitted upstream PR',
-    cta: 'Open PR',
-    url: 'https://github.com/langchain-ai/langchainjs/pull/9834',
-  },
-  {
-    label: 'ComfyUI Frontend - active dialog Escape behavior',
-    status: 'Closed, not merged',
-    kind: 'Submitted upstream PR',
-    cta: 'Open PR',
-    url: 'https://github.com/Comfy-Org/ComfyUI_frontend/pull/8190',
-  },
-  {
-    label: 'Screenpipe - multi-monitor capture support',
-    status: 'Closed, not merged',
-    kind: 'Submitted upstream PR',
-    cta: 'Open PR',
-    url: 'https://github.com/screenpipe/screenpipe/pull/2063',
-  },
-  {
-    label: 'Minecraft Web Client - long-term chunk geometry caching',
+    label: 'commaai/openpilot - fuzz testing for TX against panda',
     status: 'Open',
-    kind: 'Submitted upstream PR',
+    kind: 'Open PR',
     cta: 'Open PR',
-    url: 'https://github.com/zardoy/minecraft-web-client/pull/477',
+    url: 'https://github.com/commaai/openpilot/pull/37726',
   },
 ]
 
@@ -560,6 +643,15 @@ export const githubSection = {
           url: 'https://github.com/FelmonFekadu/jungian-typology-assessment',
         },
         {
+          name: 'docagent-studio',
+          description:
+            'Local-first document QA with hybrid retrieval (SQLite FTS5 + vector embeddings), citation-grounded answers, GraphRAG entity navigation, and offline evaluation.',
+          language: 'Python',
+          stars: 0,
+          category: 'AI Tool',
+          url: 'https://github.com/FelmonFekadu/docagent-studio',
+        },
+        {
           name: 'collab-editor',
           description:
             'Real-time collaborative document editor built with Next.js, Tiptap, Socket.io, and PostgreSQL',
@@ -568,38 +660,11 @@ export const githubSection = {
           category: 'Product',
           url: 'https://github.com/FelmonFekadu/collab-editor',
         },
-        {
-          name: 'ai-speech-coach',
-          description:
-            'Real-time AI speech coaching with live video feedback — Tavus CVI, Claude, Next.js',
-          language: 'TypeScript',
-          stars: 0,
-          category: 'Product',
-          url: 'https://github.com/FelmonFekadu/ai-speech-coach',
-        },
       ],
     },
     {
       title: 'AI Tools & Experiments',
       repos: [
-        {
-          name: 'docagent-studio',
-          description:
-            'Local-first personal docs assistant (PDF + Notion + Markdown) with citations, hybrid retrieval, GraphRAG-style index, and MLX LoRA fine-tuning.',
-          language: 'Python',
-          stars: 0,
-          category: 'AI Tool',
-          url: 'https://github.com/FelmonFekadu/docagent-studio',
-        },
-        {
-          name: 'rlm-skill',
-          description:
-            'RLM: Unlimited Context for Claude Code — implements Recursive Language Models (arXiv:2512.24601) as a native skill',
-          language: 'Python',
-          stars: 0,
-          category: 'Research',
-          url: 'https://github.com/FelmonFekadu/rlm-skill',
-        },
         {
           name: 'constitutional-playground',
           description:
@@ -609,37 +674,23 @@ export const githubSection = {
           category: 'Experiment',
           url: 'https://github.com/FelmonFekadu/constitutional-playground',
         },
-      ],
-    },
-    {
-      title: 'Systems & Utilities',
-      repos: [
         {
-          name: 'Pulse',
+          name: 'neuroflow',
           description:
-            'macOS System Monitor Widget - Real-time CPU, RAM, Disk, Battery & Network monitoring',
-          language: 'Swift',
-          stars: 0,
-          category: 'Utility',
-          url: 'https://github.com/FelmonFekadu/Pulse',
-        },
-        {
-          name: 'agent-collab',
-          description:
-            'Inter-agent collaboration protocol — structured task delegation, progress tracking, shared context, and conflict resolution for AI agents',
+            'Neural network visualization and experimentation tool for exploring model architectures and training dynamics',
           language: 'Python',
           stars: 0,
-          category: 'Protocol',
-          url: 'https://github.com/FelmonFekadu/agent-collab',
+          category: 'AI Tool',
+          url: 'https://github.com/FelmonFekadu/neuroflow',
         },
         {
-          name: 'trust-protocol',
+          name: 'GuardTrack',
           description:
-            'Agent Trust Protocol (ATP) — Multi-dimensional trust scoring for AI agent networks',
-          language: 'Python',
+            'Security patrol management and incident tracking system',
+          language: 'TypeScript',
           stars: 0,
-          category: 'Protocol',
-          url: 'https://github.com/FelmonFekadu/trust-protocol',
+          category: 'Product',
+          url: 'https://github.com/FelmonFekadu/GuardTrack',
         },
       ],
     },

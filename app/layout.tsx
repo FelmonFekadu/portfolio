@@ -4,7 +4,7 @@ import './globals.css'
 export const metadata: Metadata = {
   title: 'Felmon Fekadu | Engineering Portfolio',
   description:
-    'Desktop-first engineering portfolio for Felmon Fekadu, featuring full-stack products, real-time systems, and public proof of work.',
+    'Shipped full-stack products, real-time systems, and maintainer-reviewed open-source contributions.',
   keywords: [
     'Software Engineer',
     'AI Product Engineer',
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Felmon Fekadu | Engineering Portfolio',
     description:
-      'A desktop-first engineering portfolio featuring full-stack applications, systems work, and public proof.',
+      'Shipped full-stack products, real-time systems, and maintainer-reviewed open-source contributions.',
     type: 'website',
     url: 'https://felmonfekadu.com',
   },
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Felmon Fekadu | Engineering Portfolio',
     description:
-      'Engineering portfolio with full-stack projects, real-time systems, and OSS contributions.',
+      'Shipped full-stack products, real-time systems, and maintainer-reviewed open-source contributions.',
   },
 }
 

@@ -71,7 +71,7 @@ const personStructuredData = {
     '@type': 'CollegeOrUniversity',
     name: 'University of the People',
   },
-  sameAs: ['https://github.com/FelmonFekadu', 'https://linkedin.com/in/felmonfekadu'],
+  sameAs: ['https://github.com/felmonon', 'https://linkedin.com/in/felmonfekadu'],
   knowsAbout: [
     'Full-stack development',
     'TypeScript',

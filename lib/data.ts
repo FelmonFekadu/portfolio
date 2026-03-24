@@ -19,7 +19,7 @@ export const roles = [
 export const socialLinks = [
   {
     name: 'GitHub',
-    url: 'https://github.com/FelmonFekadu',
+    url: 'https://github.com/felmonon',
     icon: 'github',
   },
   {
@@ -93,7 +93,7 @@ export const projects = [
     tech: ['React', 'TypeScript', 'Express', 'Supabase', 'Stripe', 'Gemini'],
     category: 'Flagship Product',
     image: '/images/project-jungian.png',
-    github: 'https://github.com/FelmonFekadu/jungian-typology-assessment',
+    github: 'https://github.com/felmonon/jungian-typology-assessment',
     live: 'https://typejung.com',
     featured: true,
     caseStudy: true,
@@ -109,7 +109,7 @@ export const projects = [
       'Shipped publicly at typejung.com with tiered monetization, public source code, and inspectable product behavior.',
     imageGradient: 'linear-gradient(135deg, #1e3a8a 0%, #3730a3 100%)',
     ctaLabel: 'Open live product',
-    secondaryHref: 'https://github.com/FelmonFekadu/jungian-typology-assessment',
+    secondaryHref: 'https://github.com/felmonon/jungian-typology-assessment',
     secondaryLabel: 'Inspect source',
     proofItems: [
       'Live product at typejung.com',
@@ -126,7 +126,7 @@ export const projects = [
     tech: ['Next.js', 'TypeScript', 'Socket.io', 'Tiptap', 'PostgreSQL', 'Prisma'],
     category: 'Real-Time Web App',
     image: '/images/project-collab.png',
-    github: 'https://github.com/FelmonFekadu/collab-editor',
+    github: 'https://github.com/felmonon/collab-editor',
     live: 'https://collab-editor-sand.vercel.app',
     featured: true,
     caseStudy: true,
@@ -142,7 +142,7 @@ export const projects = [
       'Published as a live app with public source code and clear proof of real-time systems work.',
     imageGradient: 'linear-gradient(135deg, #059669 0%, #047857 100%)',
     ctaLabel: 'Open live app',
-    secondaryHref: 'https://github.com/FelmonFekadu/collab-editor',
+    secondaryHref: 'https://github.com/felmonon/collab-editor',
     secondaryLabel: 'Inspect source',
     proofItems: [
       'Live app plus public repository',
@@ -233,15 +233,15 @@ export const projects = [
 export const experiences = [
   {
     title: 'Open-Source PR Author',
-    company: 'commaai/opendbc + selected upstream repos',
+    company: 'OpenAI + MSW + Astro + commaai + selected upstream repos',
     location: 'Remote',
     period: '2026 - Present',
     description: [
-      'Authored and submitted upstream fixes and feature PRs across TypeScript and Rust codebases.',
-      'One public upstream PR is merged in commaai/opendbc; additional proposals remain open or closed.',
-      'Built test-backed changes, UI behavior fixes, and systems features while adapting to maintainer feedback.',
+      'Merged six external PRs across OpenAI, MSW, Astro, and commaai spanning concurrency, runtime behavior, typing compatibility, language tooling, documentation, and test performance.',
+      'Worked across Python and TypeScript codebases, adding regression tests, targeted fixes, and reviewable changes accepted by maintainers.',
+      'Additional public proposals remain open or closed in repositories including OpenAI Node, Astro, Prettier, commaai, and Minecraft Web Client.',
     ],
-    tech: ['TypeScript', 'Rust', 'Testing', 'Open Source'],
+    tech: ['TypeScript', 'Python', 'Testing', 'Open Source'],
   },
   {
     title: 'Safety Watch / Fire Watch',
@@ -282,15 +282,15 @@ export const experiences = [
 
 export const stats = [
   { label: 'Live Products', value: '2' },
-  { label: 'Accepted Upstream PRs', value: '1' },
-  { label: 'Submitted Upstream PRs', value: '4' },
+  { label: 'Merged External PRs', value: '6' },
+  { label: 'Public Repositories', value: '26' },
   { label: 'Years Building', value: '3+' },
 ]
 
 export const heroSection = {
   eyebrow: 'Full-stack software engineer',
   summary:
-    'I build full-stack products with authentication, payments, real-time collaboration, and model-powered features. The strongest signal is public proof you can inspect: live apps, public repositories, and accepted upstream OSS where it exists.',
+    'I build full-stack products with authentication, payments, real-time collaboration, backend workflows, and practical AI features. The strongest signal is public proof you can inspect: live apps, public repositories, and six merged external PRs across OpenAI, MSW, Astro, and commaai.',
   stackFocus: ['React', 'TypeScript', 'Node.js', 'Python', 'PostgreSQL', 'AI / LLM'],
   architectureNodes: [
     { label: 'Frontend', color: '#7FB38A', delay: 0, indent: 0 },
@@ -308,14 +308,14 @@ export const proofBarItems = [
     description: 'Auth, billing, sync, and persistence in public apps',
   },
   {
-    value: '1',
-    label: 'Accepted Upstream PR',
-    description: 'Maintainer-reviewed merge in commaai/opendbc',
+    value: '6',
+    label: 'Merged External PRs',
+    description: 'Maintainer-reviewed merges across OpenAI, MSW, Astro, and commaai',
   },
   {
-    value: '4',
-    label: 'Submitted Upstream PRs',
-    description: 'Public proposals across TS, Python, and Rust repos',
+    value: '26',
+    label: 'Public Repositories',
+    description: 'Live product work, systems projects, tooling, and experiments in the open',
   },
   {
     value: '3+',
@@ -334,7 +334,7 @@ export const aboutSection = {
   title: 'Building systems that solve real problems',
   paragraphs: [
     'I’m Felmon Fekadu, a software engineer building full-stack products, real-time collaboration tools, and model-powered workflows with an emphasis on clear interfaces, durable implementation, and inspectable proof.',
-    'My strongest evidence is public and concrete: shipped product work in TypeJung and Collab Editor, plus accepted and submitted upstream contributions that are labeled exactly as they are.',
+    'My strongest evidence is public and concrete: shipped product work in TypeJung and Collab Editor, domain-specific software in GuardTrack, and six merged external PRs across OpenAI, MSW, Astro, and commaai.',
     'I’m looking for full-time roles where product judgment and engineering discipline both matter, especially teams shipping real software with high ownership and clear review standards.',
   ],
   principles: [
@@ -379,11 +379,11 @@ export const engineeringDecisions = [
     title: 'Public review is part of the proof',
     copy:
       'Open-source contributions force precision. The claim only counts if the code can survive review in someone else’s codebase.',
-    exampleTitle: 'Example: commaai/opendbc PR',
+    exampleTitle: 'Example: external merged PRs',
     bullets: [
-      'Targeted testing improvement instead of a vague contribution claim.',
-      'Public maintainer review and accepted merge outcome.',
-      'Submitted PRs elsewhere are labeled accurately when not merged.',
+      'Merged fixes in OpenAI, MSW, Astro, and commaai instead of one-off contribution theater.',
+      'Public maintainer review and accepted outcomes across multiple external codebases.',
+      'Open and closed PRs elsewhere are labeled accurately when not merged.',
     ],
     footer: 'Reviewed code in public repositories is stronger proof than self-description.',
   },
@@ -400,9 +400,9 @@ export const journeyTimeline = [
   {
     year: '2026',
     type: 'project',
-    title: 'Merged upstream PR in commaai/opendbc',
+    title: 'Merged external PRs across OpenAI, MSW, Astro, and commaai',
     description:
-      'Accepted public contribution improving cache hypothesis strategies with test-backed changes in an upstream codebase.',
+      'Maintainer-reviewed merged fixes across SDK internals, Node runtime behavior, language tooling, and test performance.',
   },
   {
     year: '2026',
@@ -445,61 +445,62 @@ export const contactSection = {
 
 export const proofOfWork = [
   {
+    label: 'openai/openai-agents-python - race-safe SQLAlchemySession first writes',
+    status: 'Merged on March 20, 2026',
+    kind: 'Accepted upstream PR',
+    cta: 'Open merged PR',
+    url: 'https://github.com/openai/openai-agents-python/pull/2725',
+  },
+  {
+    label: 'openai/openai-agents-python - cancel-after-turn streaming guidance',
+    status: 'Merged on March 20, 2026',
+    kind: 'Accepted upstream PR',
+    cta: 'Open merged PR',
+    url: 'https://github.com/openai/openai-agents-python/pull/2710',
+  },
+  {
+    label: 'mswjs/msw - RequestHandler typing compatibility',
+    status: 'Merged on March 19, 2026',
+    kind: 'Accepted upstream PR',
+    cta: 'Open merged PR',
+    url: 'https://github.com/mswjs/msw/pull/2676',
+  },
+  {
+    label: 'withastro/astro - language-server completion routing',
+    status: 'Merged on March 16, 2026',
+    kind: 'Accepted upstream PR',
+    cta: 'Open merged PR',
+    url: 'https://github.com/withastro/astro/pull/15927',
+  },
+  {
+    label: 'mswjs/msw - avoid open handles for infinite delays',
+    status: 'Merged on March 15, 2026',
+    kind: 'Accepted upstream PR',
+    cta: 'Open merged PR',
+    url: 'https://github.com/mswjs/msw/pull/2669',
+  },
+  {
     label: 'commaai/opendbc - cache hypothesis strategies',
     status: 'Merged on January 27, 2026',
     kind: 'Accepted upstream PR',
     cta: 'Open merged PR',
     url: 'https://github.com/commaai/opendbc/pull/3052',
   },
-  {
-    label: 'LangChain.js - structured output validation',
-    status: 'Closed, not merged',
-    kind: 'Submitted upstream PR',
-    cta: 'Open PR',
-    url: 'https://github.com/langchain-ai/langchainjs/pull/9834',
-  },
-  {
-    label: 'ComfyUI Frontend - active dialog Escape behavior',
-    status: 'Closed, not merged',
-    kind: 'Submitted upstream PR',
-    cta: 'Open PR',
-    url: 'https://github.com/Comfy-Org/ComfyUI_frontend/pull/8190',
-  },
-  {
-    label: 'Screenpipe - multi-monitor capture support',
-    status: 'Closed, not merged',
-    kind: 'Submitted upstream PR',
-    cta: 'Open PR',
-    url: 'https://github.com/screenpipe/screenpipe/pull/2063',
-  },
-  {
-    label: 'Minecraft Web Client - long-term chunk geometry caching',
-    status: 'Open',
-    kind: 'Submitted upstream PR',
-    cta: 'Open PR',
-    url: 'https://github.com/zardoy/minecraft-web-client/pull/477',
-  },
 ]
 
 export const githubSection = {
-  profileUrl: 'https://github.com/FelmonFekadu',
+  profileUrl: 'https://github.com/felmonon',
   intro:
-    'Public repositories pulled from my actual GitHub profile, showing current product work, AI tooling, and experiments I build in the open.',
+    'Live GitHub snapshot from my current profile: shipped products, current experiments, and maintainer-reviewed upstream work with links you can inspect directly.',
   stats: [
-    { label: 'Contributions this year', value: '34' },
-    { label: 'PRs merged', value: '7' },
-    { label: 'Repositories', value: '32' },
-    { label: 'Stars earned', value: '1' },
+    { label: 'Contributions this year', value: '171' },
+    { label: 'External PRs merged', value: '6' },
+    { label: 'Public repositories', value: '26' },
+    { label: 'Followers', value: '5' },
   ],
   contributionWeeks: [
-    [0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 1, 9, 8, 1, 1, 0],
-    [0, 2, 0, 0, 0, 3, 2],
-    [0, 0, 1, 1, 0, 0, 0],
-    [0, 0, 2, 0, 0, 0, 1],
-    [0, 0, 0, 0, 0, 1, 0],
+    [0, 0, 0, 2, 0, 0, 0],
     [0, 0, 1, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0],
@@ -509,6 +510,12 @@ export const githubSection = {
     [0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 2, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 1, 29, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0],
@@ -523,28 +530,28 @@ export const githubSection = {
     [0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 1, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 2, 0, 1, 1, 0],
+    [0, 0, 8, 5, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 3, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 1, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0],
+    [0, 1, 6, 4, 1, 1, 0],
+    [0, 2, 0, 0, 0, 3, 2],
+    [0, 0, 1, 1, 0, 0, 0],
+    [0, 0, 2, 0, 0, 0, 4],
+    [2, 0, 0, 0, 0, 1, 0],
+    [0, 0, 1, 0, 0, 0, 1],
+    [0, 2, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 5, 0],
+    [2, 1, 0, 5, 6, 18, 23],
+    [2, 8, 9],
   ],
   repoGroups: [
     {
@@ -553,29 +560,29 @@ export const githubSection = {
         {
           name: 'jungian-typology-assessment',
           description:
-            "Discover your true psychological type with the most accurate Jungian cognitive functions assessment. Based on Carl Jung's original theory.",
+            'Full-stack Jungian typology assessment with auth, billing, persisted results, and AI-generated reports.',
           language: 'TypeScript',
           stars: 1,
           category: 'Product',
-          url: 'https://github.com/FelmonFekadu/jungian-typology-assessment',
-        },
-        {
-          name: 'collab-editor',
-          description:
-            'Real-time collaborative document editor built with Next.js, Tiptap, Socket.io, and PostgreSQL',
-          language: 'TypeScript',
-          stars: 0,
-          category: 'Product',
-          url: 'https://github.com/FelmonFekadu/collab-editor',
+          url: 'https://github.com/felmonon/jungian-typology-assessment',
         },
         {
           name: 'ai-speech-coach',
           description:
-            'Real-time AI speech coaching with live video feedback — Tavus CVI, Claude, Next.js',
+            'Speech coaching app with live video sessions, Tavus integration, and saved feedback workflows.',
           language: 'TypeScript',
           stars: 0,
           category: 'Product',
-          url: 'https://github.com/FelmonFekadu/ai-speech-coach',
+          url: 'https://github.com/felmonon/ai-speech-coach',
+        },
+        {
+          name: 'GuardTrack',
+          description:
+            'Guard patrol tracking app with geofencing, session management, and checkpoint logging.',
+          language: 'TypeScript',
+          stars: 0,
+          category: 'Product',
+          url: 'https://github.com/felmonon/GuardTrack',
         },
       ],
     },
@@ -585,29 +592,29 @@ export const githubSection = {
         {
           name: 'docagent-studio',
           description:
-            'Local-first personal docs assistant (PDF + Notion + Markdown) with citations, hybrid retrieval, GraphRAG-style index, and MLX LoRA fine-tuning.',
+            'Local-first document QA with citations, hybrid retrieval, and offline evaluation for personal knowledge bases.',
           language: 'Python',
           stars: 0,
           category: 'AI Tool',
-          url: 'https://github.com/FelmonFekadu/docagent-studio',
+          url: 'https://github.com/felmonon/docagent-studio',
         },
         {
           name: 'rlm-skill',
           description:
-            'RLM: Unlimited Context for Claude Code — implements Recursive Language Models (arXiv:2512.24601) as a native skill',
+            'RLM: unlimited context for Claude Code, implemented as a native skill around recursive language model workflows.',
           language: 'Python',
           stars: 0,
           category: 'Research',
-          url: 'https://github.com/FelmonFekadu/rlm-skill',
+          url: 'https://github.com/felmonon/rlm-skill',
         },
         {
           name: 'constitutional-playground',
           description:
-            'Constitutional AI Playground - An interactive platform for experimenting with Constitutional AI principles',
+            'Constitutional AI playground for comparing critique and revision loops in real time.',
           language: 'TypeScript',
           stars: 0,
           category: 'Experiment',
-          url: 'https://github.com/FelmonFekadu/constitutional-playground',
+          url: 'https://github.com/felmonon/constitutional-playground',
         },
       ],
     },
@@ -617,29 +624,29 @@ export const githubSection = {
         {
           name: 'Pulse',
           description:
-            'macOS System Monitor Widget - Real-time CPU, RAM, Disk, Battery & Network monitoring',
+            'Minimal macOS system monitor widget with live CPU, RAM, disk, battery, and network stats.',
           language: 'Swift',
           stars: 0,
           category: 'Utility',
-          url: 'https://github.com/FelmonFekadu/Pulse',
+          url: 'https://github.com/felmonon/Pulse',
+        },
+        {
+          name: 'collab-editor',
+          description:
+            'Real-time collaborative editor with Tiptap, Socket.io sync, autosave, and PostgreSQL persistence.',
+          language: 'TypeScript',
+          stars: 0,
+          category: 'Real-time app',
+          url: 'https://github.com/felmonon/collab-editor',
         },
         {
           name: 'agent-collab',
           description:
-            'Inter-agent collaboration protocol — structured task delegation, progress tracking, shared context, and conflict resolution for AI agents',
+            'Inter-agent collaboration protocol with structured task delegation, progress tracking, and shared context.',
           language: 'Python',
           stars: 0,
           category: 'Protocol',
-          url: 'https://github.com/FelmonFekadu/agent-collab',
-        },
-        {
-          name: 'trust-protocol',
-          description:
-            'Agent Trust Protocol (ATP) — Multi-dimensional trust scoring for AI agent networks',
-          language: 'Python',
-          stars: 0,
-          category: 'Protocol',
-          url: 'https://github.com/FelmonFekadu/trust-protocol',
+          url: 'https://github.com/felmonon/agent-collab',
         },
       ],
     },

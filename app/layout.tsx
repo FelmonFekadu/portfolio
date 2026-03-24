@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
 const siteUrl = 'https://felmonfekadu.com'
@@ -97,6 +98,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personStructuredData) }}
         />
         {children}
+        <Analytics />
       </body>
     </html>
   )

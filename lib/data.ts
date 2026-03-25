@@ -181,6 +181,39 @@ export const projects = [
     ],
   },
   {
+    title: 'msw-inspector',
+    tagline: 'CLI and GitHub Action that finds gaps in MSW mock coverage.',
+    description:
+      'CLI and GitHub Action that scans MSW request handlers and actual API calls in your codebase, compares them, and reports unmocked endpoints and stale mocks. Published to npm and GitHub Marketplace.',
+    tech: ['TypeScript', 'AST Analysis', 'CLI', 'GitHub Actions', 'npm'],
+    category: 'Developer Tool',
+    image: '/images/project-jungian.png',
+    github: 'https://github.com/felmonon/msw-inspector',
+    live: 'https://www.npmjs.com/package/msw-inspector-cli',
+    featured: true,
+    caseStudy: true,
+    problem:
+      'MSW handlers drift from actual API usage over time. Endpoints get added without mocks, and old mocks go stale when code changes. Teams find out when tests pass locally but fail in production.',
+    solution:
+      'Built an AST-based scanner using ts-morph that parses both MSW handler registrations and API call sites, normalizes the endpoints, and compares coverage. Shipped as a CLI, npm package, and GitHub Action.',
+    architecture:
+      'TypeScript with ts-morph for AST parsing, commander for CLI, fast-glob for file discovery. Separate GitHub Action repo with self-contained runtime for Marketplace distribution.',
+    constraints:
+      'The scanner must handle multiple API call patterns (fetch, axios, axios.create) and MSW handler styles (http.*, rest.*) without false positives. Published as a real npm package with semver.',
+    outcome:
+      'Published to npm as msw-inspector-cli, GitHub Action live on Marketplace. Dogfooded on real repos including typejung.com (found 24 unmocked endpoints).',
+    imageGradient: 'linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%)',
+    ctaLabel: 'View on npm',
+    secondaryHref: 'https://github.com/marketplace/actions/msw-inspector',
+    secondaryLabel: 'GitHub Marketplace',
+    proofItems: [
+      'Published to npm as msw-inspector-cli',
+      'GitHub Action live on Marketplace',
+      'AST-based scanning with ts-morph',
+      'Dogfooded on real repos — found 24 unmocked endpoints in typejung.com',
+    ],
+  },
+  {
     title: 'openai/openai-agents-python',
     tagline: "Fixed race condition and clarified streaming docs in OpenAI's agent framework.",
     description:
@@ -360,7 +393,7 @@ export const experiences = [
 ]
 
 export const stats = [
-  { label: 'Shipped Products', value: '3' },
+  { label: 'Shipped Products', value: '4' },
   { label: 'Merged PRs', value: '6' },
   { label: 'OSS Pull Requests', value: '14' },
   { label: 'Years Building', value: '3+' },
@@ -382,9 +415,9 @@ export const heroSection = {
 
 export const proofBarItems = [
   {
-    value: '3',
+    value: '4',
     label: 'Shipped Products',
-    description: 'TypeJung, Collab Editor, and DocAgent Studio',
+    description: 'TypeJung, Collab Editor, DocAgent Studio, and msw-inspector',
   },
   {
     value: '6',
@@ -558,6 +591,13 @@ export const proofOfWork = [
     cta: 'Open PR',
     url: 'https://github.com/commaai/openpilot/pull/37726',
   },
+  {
+    label: 'msw-inspector — CLI + GitHub Action for MSW mock coverage',
+    status: 'Published to npm and GitHub Marketplace',
+    kind: 'Published Package',
+    cta: 'View on npm',
+    url: 'https://www.npmjs.com/package/msw-inspector-cli',
+  },
 ]
 
 export const githubSection = {
@@ -680,13 +720,13 @@ export const githubSection = {
           url: 'https://github.com/felmonon/neuroflow',
         },
         {
-          name: 'GuardTrack',
+          name: 'msw-inspector',
           description:
-            'Guard patrol tracking app with geofencing, session management, checkpoint logging, and offline support.',
+            'Find gaps in your MSW mock coverage. CLI + GitHub Action. Published to npm and GitHub Marketplace.',
           language: 'TypeScript',
           stars: 0,
-          category: 'Product',
-          url: 'https://github.com/felmonon/GuardTrack',
+          category: 'Developer Tool',
+          url: 'https://github.com/felmonon/msw-inspector',
         },
       ],
     },

@@ -41,6 +41,12 @@ async function createAccessToken(username: string, password: string) {
 }
 
 export async function middleware(request: NextRequest) {
+  const host = request.headers.get('host') ?? ''
+  if (host === 'felmonfekadu.com' || host === 'www.felmonfekadu.com') {
+    const { pathname, search } = request.nextUrl
+    return NextResponse.redirect(`https://felmon.tech${pathname}${search}`, 301)
+  }
+
   if (!isPrivateVisibilityEnabled()) {
     return NextResponse.next()
   }

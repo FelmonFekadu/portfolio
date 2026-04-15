@@ -34,16 +34,7 @@ export const socialLinks = [
   },
 ]
 
-export const resumeLinks = [
-  {
-    name: 'SWE Resume',
-    url: '/resumes/Felmon_Fekadu_Resume_SWE_2026.pdf',
-  },
-  {
-    name: 'AI / LLM Resume',
-    url: '/resumes/Felmon_Fekadu_Resume_AI_LLM_2026.pdf',
-  },
-]
+export const resumeLinks: { name: string; url: string }[] = []
 
 export const aboutHighlights = [
   'Full-Stack Web Development',

@@ -12,7 +12,7 @@ export default function Contact() {
     message: '',
   })
 
-  const email = 'felmonon@gmail.com'
+  const email = 'hello@felmon.tech'
   const githubLink = socialLinks.find((link) => link.icon === 'github')?.url
   const linkedInLink = socialLinks.find((link) => link.icon === 'linkedin')?.url
 

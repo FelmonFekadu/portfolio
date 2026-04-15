@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     description:
       'Shipped full-stack products, real-time systems, and maintainer-reviewed open-source contributions.',
     type: 'website',
-    url: 'https://felmonfekadu.com',
+    url: 'https://felmon.tech',
   },
   twitter: {
     card: 'summary_large_image',

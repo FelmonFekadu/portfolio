@@ -29,7 +29,7 @@ export const socialLinks = [
   },
   {
     name: 'Email',
-    url: 'mailto:felmonon@gmail.com',
+    url: 'mailto:hello@felmon.tech',
     icon: 'mail',
   },
 ]

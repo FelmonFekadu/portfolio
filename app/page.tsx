@@ -224,7 +224,8 @@ function AnimatedMetric({ value, label }: { value: string; label: string }) {
     }, duration / steps)
 
     return () => window.clearInterval(timer)
-  }, [match, shouldReduceMotion, targetValue])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value, shouldReduceMotion])
 
   return (
     <div>

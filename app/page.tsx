@@ -25,7 +25,6 @@ import {
   githubSection,
   heroSection,
   journeyTimeline,
-  proofBarItems,
   proofOfWork,
   projects,
   resumeLinks,
@@ -36,10 +35,7 @@ interface CaseStudyBlockProps {
   category: string
   name: string
   tagline: string
-  problem: string
   solution: string
-  architecture: string
-  constraints: string
   outcome: string
   stack: string[]
   imageGradient: string
@@ -48,12 +44,6 @@ interface CaseStudyBlockProps {
   secondaryHref?: string
   secondaryLabel?: string
   proofItems: string[]
-}
-
-interface MetricCardProps {
-  value: string
-  label: string
-  description?: string
 }
 
 interface ButtonLinkProps {
@@ -97,9 +87,9 @@ const linkedInLink = socialLinks.find((link) => link.icon === 'linkedin')
 const caseStudyProjects = projects.filter((project) => project.caseStudy)
 const heroProjects = caseStudyProjects.slice(0, 2)
 const heroSignals = [
-  'Live product links',
-  'Inspectable source code',
-  'Maintainer-reviewed OSS proof',
+  { value: '4', label: 'shipped products' },
+  { value: '7', label: 'merged PRs' },
+  { value: '26', label: 'public repos' },
 ]
 const highlightedRepos = githubSection.repoGroups
   .flatMap((group) =>
@@ -194,56 +184,6 @@ function TechTag({ children }: { children: ReactNode }) {
   )
 }
 
-function AnimatedMetric({ value, label }: { value: string; label: string }) {
-  const match = value.match(/^(\d+)(.*)$/)
-  const targetValue = match ? Number.parseInt(match[1], 10) : 0
-  const suffix = match?.[2] ?? ''
-  const [count, setCount] = useState(0)
-  const shouldReduceMotion = useReducedMotion()
-
-  useEffect(() => {
-    if (!match || shouldReduceMotion) {
-      setCount(targetValue)
-      return
-    }
-
-    const duration = 1200
-    const steps = 40
-    const increment = targetValue / steps
-    let current = 0
-
-    const timer = window.setInterval(() => {
-      current += increment
-
-      if (current >= targetValue) {
-        setCount(targetValue)
-        window.clearInterval(timer)
-      } else {
-        setCount(Math.floor(current))
-      }
-    }, duration / steps)
-
-    return () => window.clearInterval(timer)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value, shouldReduceMotion])
-
-  return (
-    <div>
-      <div className="mb-1 text-3xl font-semibold text-[#F5F5F0]">{match ? `${count}${suffix}` : value}</div>
-      <div className="text-sm text-[#71717A]">{label}</div>
-    </div>
-  )
-}
-
-function MetricCard({ value, label, description }: MetricCardProps) {
-  return (
-    <div className="group rounded-2xl border border-[#232326] bg-[#111111] p-6 transition-all duration-300 hover:border-[#C9A86A]/40 hover:bg-[#111111]/80">
-      <AnimatedMetric value={value} label={label} />
-      {description ? <div className="mt-2 text-xs leading-relaxed text-[#71717A]">{description}</div> : null}
-    </div>
-  )
-}
-
 function TimelineItem({ year, title, description, type }: TimelineItemProps) {
   const typeColors = {
     education: '#C9A86A',
@@ -302,7 +242,7 @@ function RepoCard({ name, description, language, stars, category, url }: RepoCar
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      className={`group block rounded-2xl border border-[#232326] bg-[#111111] p-6 transition-colors hover:border-[#C9A86A] ${focusRingClass}`}
+      className={`group block rounded-2xl border border-[#232326] bg-[#111111] p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#C9A86A] hover:shadow-[0_20px_60px_-30px_rgba(201,168,106,0.25)] ${focusRingClass}`}
     >
       <div className="mb-4 flex items-start justify-between gap-4">
         <div className="flex items-center gap-2">
@@ -339,23 +279,11 @@ function RepoCard({ name, description, language, stars, category, url }: RepoCar
   )
 }
 
-function getContributionCellClass(contributionCount: number) {
-  if (contributionCount <= 0) return 'bg-[#171717]'
-  if (contributionCount <= 1) return 'bg-[#C9A86A]/20'
-  if (contributionCount <= 2) return 'bg-[#C9A86A]/40'
-  if (contributionCount <= 5) return 'bg-[#C9A86A]/60'
-  if (contributionCount <= 8) return 'bg-[#C9A86A]/80'
-  return 'bg-[#C9A86A]'
-}
-
 function CaseStudyBlock({
   category,
   name,
   tagline,
-  problem,
   solution,
-  architecture,
-  constraints,
   outcome,
   stack,
   imageGradient,
@@ -366,92 +294,66 @@ function CaseStudyBlock({
   proofItems,
 }: CaseStudyBlockProps) {
   return (
-    <article className="overflow-hidden rounded-[28px] border border-[#232326] bg-[#111111] transition-all duration-500 hover:border-[#C9A86A]/50 hover:shadow-[0_0_40px_rgba(201,168,106,0.1)]">
-      <div className="grid xl:grid-cols-[minmax(0,0.95fr)_minmax(0,1.35fr)]">
-        <div className="border-b border-[#232326] p-8 xl:border-b-0 xl:border-r">
-          <div className="mb-4 inline-flex rounded-full border border-[#3A3021] bg-[#171717] px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-[#C9A86A]">
-            {category}
-          </div>
-
-          <div
-            className="relative flex aspect-[5/4] items-end overflow-hidden rounded-2xl border border-white/5 p-6"
-            style={{ background: imageGradient }}
-          >
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.12),transparent_45%)]" />
-            <div className="relative z-10 max-w-[18rem]">
-              <div className="mb-2 text-xs uppercase tracking-[0.18em] text-white/60">Flagship proof</div>
-              <div className="font-serif text-4xl leading-tight text-[#F5F5F0]">{name}</div>
+    <article className="group overflow-hidden rounded-2xl border border-[#232326] bg-[#111111] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#C9A86A]/50 hover:shadow-[0_20px_60px_-20px_rgba(201,168,106,0.15)]">
+      <div className="grid xl:grid-cols-[minmax(0,0.85fr)_minmax(0,1.55fr)]">
+        <div
+          className="relative hidden overflow-hidden border-b border-[#232326] xl:block xl:border-b-0 xl:border-r"
+          style={{ background: imageGradient }}
+        >
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.10),transparent_55%)]" />
+          <div className="relative flex h-full flex-col justify-between p-7">
+            <div className="inline-flex w-fit rounded-full border border-white/15 bg-black/30 px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-white/85 backdrop-blur-sm">
+              {category}
             </div>
-          </div>
-
-          <div className="mt-6 grid gap-4">
-            <div className="rounded-2xl border border-[#232326] bg-[#0A0A0A] p-4">
-              <div className="mb-2 text-[11px] uppercase tracking-[0.18em] text-[#71717A]">Result</div>
-              <p className="text-sm leading-relaxed text-[#7FB38A]">{outcome}</p>
-            </div>
-
-            <div className="rounded-2xl border border-[#232326] bg-[#0A0A0A] p-4">
-              <div className="mb-2 text-[11px] uppercase tracking-[0.18em] text-[#71717A]">System</div>
-              <p className="text-sm leading-relaxed text-[#A1A1AA]">{architecture}</p>
-            </div>
+            <div className="font-serif text-4xl leading-tight text-white">{name}</div>
           </div>
         </div>
 
-        <div className="p-8">
-          <div className="mb-6">
-            <h3 className="mb-2 text-3xl font-semibold text-[#F5F5F0]">{name}</h3>
-            <p className="text-base text-[#C9A86A]">{tagline}</p>
+        <div className="p-7 xl:p-8">
+          <div className="mb-3 inline-flex rounded-full border border-[#3A3021] bg-[#171717] px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-[#C9A86A] xl:hidden">
+            {category}
           </div>
 
-          <p className="mb-6 max-w-3xl text-base leading-relaxed text-[#D4D4D8]">{solution}</p>
-
-          <div className="mb-6 grid gap-4 md:grid-cols-2">
-            <div className="rounded-2xl border border-[#232326] bg-[#0A0A0A] p-5">
-              <div className="mb-2 text-[11px] uppercase tracking-[0.18em] text-[#71717A]">Why it exists</div>
-              <p className="text-sm leading-relaxed text-[#A1A1AA]">{problem}</p>
-            </div>
-
-            <div className="rounded-2xl border border-[#232326] bg-[#0A0A0A] p-5">
-              <div className="mb-2 text-[11px] uppercase tracking-[0.18em] text-[#71717A]">Constraint</div>
-              <p className="text-sm leading-relaxed text-[#A1A1AA]">{constraints}</p>
-            </div>
+          <div className="mb-4">
+            <h3 className="mb-2 text-2xl font-semibold text-[#F5F5F0]">{name}</h3>
+            <p className="text-sm text-[#C9A86A]">{tagline}</p>
           </div>
 
-          <div className="mb-6">
-            <div className="mb-3 text-[11px] uppercase tracking-[0.18em] text-[#71717A]">Inspectable proof</div>
-            <div className="grid gap-3 md:grid-cols-3">
-              {proofItems.slice(0, 3).map((item) => (
-                <div
-                  key={item}
-                  className="flex items-start gap-2 rounded-2xl border border-[#232326] bg-[#0A0A0A] px-4 py-3 text-sm leading-relaxed text-[#A1A1AA]"
-                >
-                  <Check className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#7FB38A]" />
+          <p className="mb-5 max-w-3xl text-[15px] leading-relaxed text-[#D4D4D8]">{solution}</p>
+
+          <div className="mb-5 flex items-start gap-2 rounded-xl border border-[#7FB38A]/20 bg-[#7FB38A]/5 px-4 py-3 text-sm leading-relaxed text-[#7FB38A]">
+            <Check className="mt-0.5 h-4 w-4 flex-shrink-0" />
+            <span>{outcome}</span>
+          </div>
+
+          {proofItems.length > 0 ? (
+            <ul className="mb-5 grid gap-1.5 text-sm text-[#A1A1AA] md:grid-cols-2">
+              {proofItems.slice(0, 4).map((item) => (
+                <li key={item} className="flex items-start gap-2">
+                  <span className="mt-2 h-1 w-1 flex-shrink-0 rounded-full bg-[#71717A]" aria-hidden />
                   <span>{item}</span>
-                </div>
+                </li>
               ))}
-            </div>
+            </ul>
+          ) : null}
+
+          <div className="flex flex-wrap gap-1.5">
+            {stack.map((tech) => (
+              <TechTag key={tech}>{tech}</TechTag>
+            ))}
           </div>
 
-          <div className="border-t border-[#232326] pt-5">
-            <div className="mb-3 text-[11px] uppercase tracking-[0.18em] text-[#71717A]">Stack</div>
-            <div className="mb-5 flex flex-wrap gap-2">
-              {stack.map((tech) => (
-                <TechTag key={tech}>{tech}</TechTag>
-              ))}
-            </div>
+          <div className="mt-5 flex flex-wrap items-center gap-3 border-t border-[#232326] pt-5">
+            <PrimaryButton href={href} newTab showArrow className="px-5 py-2.5">
+              {ctaLabel}
+            </PrimaryButton>
 
-            <div className="flex flex-wrap items-center gap-3">
-              <PrimaryButton href={href} newTab showArrow className="px-5 py-2.5">
-                {ctaLabel}
-              </PrimaryButton>
-
-              {secondaryHref && secondaryLabel ? (
-                <SecondaryButton href={secondaryHref} newTab className="px-5 py-2.5">
-                  {secondaryLabel}
-                  <ExternalLink className="h-4 w-4" />
-                </SecondaryButton>
-              ) : null}
-            </div>
+            {secondaryHref && secondaryLabel ? (
+              <SecondaryButton href={secondaryHref} newTab className="px-5 py-2.5">
+                {secondaryLabel}
+                <ExternalLink className="h-4 w-4" />
+              </SecondaryButton>
+            ) : null}
           </div>
         </div>
       </div>
@@ -491,7 +393,6 @@ function Navigation() {
     { id: 'case-studies', label: 'Work' },
     { id: 'experience', label: 'Experience' },
     { id: 'github', label: 'GitHub' },
-    { id: 'contact', label: 'Contact' },
   ]
 
   return (
@@ -666,12 +567,13 @@ function Hero() {
               transition={{ duration: 0.55, delay: 0.42 }}
               className="flex flex-wrap gap-3"
             >
-              {heroSignals.map((item) => (
-                <div
-                  key={item}
-                  className="rounded-full border border-[#232326] bg-[#111111] px-4 py-2 text-sm text-[#D4D4D8]"
-                >
-                  {item}
+              {heroSignals.map((item, index) => (
+                <div key={item.label} className="flex items-center gap-3">
+                  {index > 0 ? <div className="h-px w-6 bg-[#232326]" aria-hidden /> : null}
+                  <div>
+                    <div className="font-serif text-2xl leading-none text-[#F5F5F0]">{item.value}</div>
+                    <div className="mt-1 text-[11px] uppercase tracking-[0.18em] text-[#71717A]">{item.label}</div>
+                  </div>
                 </div>
               ))}
             </motion.div>
@@ -683,33 +585,23 @@ function Hero() {
             transition={{ duration: 0.7, delay: 0.28 }}
             className="xl:col-span-5"
           >
-            <div className="rounded-[28px] border border-[#232326] bg-[#111111] p-8 shadow-[0_30px_80px_rgba(0,0,0,0.22)]">
-              <div className="mb-6 flex items-center justify-between gap-4">
-                <div>
-                  <div className="mb-2 text-[11px] uppercase tracking-[0.2em] text-[#71717A]">Fastest proof</div>
-                  <h2 className="font-serif text-3xl leading-tight text-[#F5F5F0]">Open real work first</h2>
-                </div>
+            <div className="rounded-[28px] border border-[#232326] bg-[#111111] p-7 shadow-[0_30px_80px_rgba(0,0,0,0.22)]">
+              <h2 className="mb-6 font-serif text-2xl leading-tight text-[#F5F5F0]">Open real work first</h2>
 
-                <div className="rounded-full border border-[#3A3021] bg-[#171717] px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-[#C9A86A]">
-                  Public evidence
-                </div>
-              </div>
-
-              <div className="space-y-4">
+              <div className="space-y-3">
                 {heroProjects.map((project) => (
                   <a
                     key={project.title}
                     href={project.live || project.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`group block rounded-2xl border border-[#232326] bg-[#0A0A0A] p-5 transition-colors hover:border-[#C9A86A] ${focusRingClass}`}
+                    className={`group flex items-center justify-between gap-4 rounded-xl border border-[#232326] bg-[#0A0A0A] px-4 py-3 transition-all duration-300 hover:-translate-y-px hover:border-[#C9A86A] ${focusRingClass}`}
                   >
-                    <div className="mb-2 flex items-center justify-between gap-4">
+                    <div className="min-w-0">
                       <div className="text-sm font-medium text-[#F5F5F0]">{project.title}</div>
-                      <ArrowRight className="h-4 w-4 text-[#71717A] transition-colors group-hover:text-[#C9A86A]" />
+                      <div className="mt-0.5 truncate text-xs text-[#71717A]">{project.category}</div>
                     </div>
-                    <div className="mb-2 text-[11px] uppercase tracking-[0.18em] text-[#C9A86A]">{project.category}</div>
-                    <p className="text-sm leading-relaxed text-[#A1A1AA]">{project.outcome}</p>
+                    <ArrowRight className="h-4 w-4 flex-shrink-0 text-[#71717A] transition-colors group-hover:text-[#C9A86A]" />
                   </a>
                 ))}
 
@@ -718,63 +610,24 @@ function Hero() {
                     href={mergedProof.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`group block rounded-2xl border border-[#232326] bg-[#0A0A0A] p-5 transition-colors hover:border-[#7FB38A] ${focusRingClass}`}
+                    className={`group flex items-center justify-between gap-4 rounded-xl border border-[#232326] bg-[#0A0A0A] px-4 py-3 transition-all duration-300 hover:-translate-y-px hover:border-[#7FB38A] ${focusRingClass}`}
                   >
-                    <div className="mb-2 flex items-center justify-between gap-4">
-                      <div className="text-sm font-medium text-[#F5F5F0]">{mergedProof.label}</div>
-                      <ExternalLink className="h-4 w-4 text-[#71717A] transition-colors group-hover:text-[#7FB38A]" />
+                    <div className="min-w-0">
+                      <div className="truncate text-sm font-medium text-[#F5F5F0]">{mergedProof.label}</div>
+                      <div className="mt-0.5 text-xs text-[#7FB38A]">{mergedProof.status}</div>
                     </div>
-                    <div className="mb-2 text-[11px] uppercase tracking-[0.18em] text-[#7FB38A]">{mergedProof.kind}</div>
-                    <p className="text-sm leading-relaxed text-[#A1A1AA]">{mergedProof.status}</p>
+                    <ExternalLink className="h-4 w-4 flex-shrink-0 text-[#71717A] transition-colors group-hover:text-[#7FB38A]" />
                   </a>
                 ) : null}
               </div>
 
-              <div className="mt-6 border-t border-[#232326] pt-5">
-                <div className="mb-3 text-[11px] uppercase tracking-[0.18em] text-[#71717A]">Stack focus</div>
-                <div className="flex flex-wrap gap-2">
-                  {heroSection.stackFocus.map((tech) => (
-                    <TechTag key={tech}>{tech}</TechTag>
-                  ))}
-                </div>
+              <div className="mt-6 flex flex-wrap gap-2 border-t border-[#232326] pt-5">
+                {heroSection.stackFocus.map((tech) => (
+                  <TechTag key={tech}>{tech}</TechTag>
+                ))}
               </div>
             </div>
           </motion.div>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-function ProofBar() {
-  const shouldReduceMotion = useReducedMotion()
-
-  return (
-    <section className="border-t border-[#232326] px-6 py-20 xl:px-8">
-      <div className="mx-auto max-w-[1440px]">
-        <div className="mb-8 flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <div className="mb-3 text-xs font-medium uppercase tracking-[0.2em] text-[#C9A86A]">Proof snapshot</div>
-            <h2 className="font-serif text-4xl leading-tight text-[#F5F5F0]">Evidence you can scan in seconds</h2>
-          </div>
-
-          <p className="max-w-2xl text-sm leading-relaxed text-[#71717A]">
-            This section stays quantitative. The detailed proof lives in the project and open-source sections below.
-          </p>
-        </div>
-
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-          {proofBarItems.map((metric, index) => (
-            <motion.div
-              key={metric.label}
-              initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-100px' }}
-              transition={{ duration: 0.45, delay: shouldReduceMotion ? 0 : index * 0.08 }}
-            >
-              <MetricCard value={metric.value} label={metric.label} description={metric.description} />
-            </motion.div>
-          ))}
         </div>
       </div>
     </section>
@@ -785,7 +638,7 @@ function About() {
   const shouldReduceMotion = useReducedMotion()
 
   return (
-    <section id="about" className="scroll-mt-28 border-t border-[#232326] px-6 py-28 xl:px-8">
+    <section id="about" className="scroll-mt-28 border-t border-[#232326] px-6 py-20 xl:px-8">
       <div className="mx-auto max-w-[1440px]">
         <div className="grid gap-10 xl:grid-cols-12 xl:gap-12">
           <motion.div
@@ -859,7 +712,7 @@ function About() {
 
 function CaseStudies() {
   return (
-    <section id="case-studies" className="scroll-mt-28 border-t border-[#232326] px-6 py-28 xl:px-8">
+    <section id="case-studies" className="scroll-mt-28 border-t border-[#232326] px-6 py-20 xl:px-8">
       <div className="mx-auto max-w-[1440px]">
         <div className="mb-16">
           <div className="mb-4 text-xs font-medium uppercase tracking-[0.2em] text-[#C9A86A]">Featured work</div>
@@ -869,17 +722,14 @@ function CaseStudies() {
           </p>
         </div>
 
-        <div className="space-y-8">
+        <div className="space-y-6">
           {caseStudyProjects.map((project) => (
             <CaseStudyBlock
               key={project.title}
               category={project.category}
               name={project.title}
               tagline={project.tagline ?? project.description}
-              problem={project.problem ?? project.description}
               solution={project.solution ?? project.description}
-              architecture={project.architecture ?? 'Public project implementation'}
-              constraints={project.constraints ?? 'Built under real product constraints.'}
               outcome={project.outcome ?? project.description}
               stack={project.tech}
               imageGradient={project.imageGradient ?? 'linear-gradient(135deg, #171717 0%, #232326 100%)'}
@@ -898,7 +748,7 @@ function CaseStudies() {
 
 function EngineeringDecisions() {
   return (
-    <section className="border-t border-[#232326] px-6 py-28 xl:px-8">
+    <section className="border-t border-[#232326] px-6 py-20 xl:px-8">
       <div className="mx-auto max-w-[1440px]">
         <div className="mb-16 text-center">
           <div className="mb-4 text-xs font-medium uppercase tracking-[0.2em] text-[#C9A86A]">Technical depth</div>
@@ -947,7 +797,7 @@ function EngineeringDecisions() {
 
 function Experience() {
   return (
-    <section id="experience" className="scroll-mt-28 border-t border-[#232326] px-6 py-28 xl:px-8">
+    <section id="experience" className="scroll-mt-28 border-t border-[#232326] px-6 py-20 xl:px-8">
       <div className="mx-auto max-w-[1440px]">
         <div className="mb-16">
           <div className="mb-4 text-xs font-medium uppercase tracking-[0.2em] text-[#C9A86A]">Journey</div>
@@ -975,9 +825,9 @@ function Experience() {
 
 function GitHubSection() {
   return (
-    <section id="github" className="scroll-mt-28 border-t border-[#232326] px-6 py-28 xl:px-8">
+    <section id="github" className="scroll-mt-28 border-t border-[#232326] px-6 py-20 xl:px-8">
       <div className="mx-auto max-w-[1440px]">
-        <div className="mb-16 flex flex-col gap-6 xl:flex-row xl:items-end xl:justify-between">
+        <div className="mb-12 flex flex-col gap-6 xl:flex-row xl:items-end xl:justify-between">
           <div>
             <div className="mb-4 text-xs font-medium uppercase tracking-[0.2em] text-[#C9A86A]">Open source &amp; experiments</div>
             <h2 className="mb-4 font-serif text-5xl leading-tight text-[#F5F5F0]">Body of work</h2>
@@ -996,7 +846,16 @@ function GitHubSection() {
           </a>
         </div>
 
-        <div className="mb-8 grid gap-6 xl:grid-cols-[minmax(0,1.4fr)_minmax(0,0.8fr)]">
+        <div className="mb-10 flex flex-wrap items-baseline gap-x-10 gap-y-4 border-y border-[#232326] py-6">
+          {githubSection.stats.map((stat) => (
+            <div key={stat.label} className="flex items-baseline gap-2">
+              <span className="font-serif text-3xl text-[#F5F5F0]">{stat.value}</span>
+              <span className="text-sm text-[#71717A]">{stat.label}</span>
+            </div>
+          ))}
+        </div>
+
+        <div className="grid gap-6 xl:grid-cols-[minmax(0,1.4fr)_minmax(0,0.8fr)]">
           <div className="rounded-[28px] border border-[#232326] bg-[#111111] p-8">
             <div className="mb-6 flex items-end justify-between gap-4">
               <div>
@@ -1034,7 +893,7 @@ function GitHubSection() {
                   href={item.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`group block rounded-2xl border border-[#232326] bg-[#0A0A0A] p-4 transition-colors hover:border-[#C9A86A] ${focusRingClass}`}
+                  className={`group block rounded-2xl border border-[#232326] bg-[#0A0A0A] p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#C9A86A] ${focusRingClass}`}
                 >
                   <div className="mb-2 flex items-center justify-between gap-4">
                     <div className="text-sm font-medium text-[#F5F5F0]">{item.label}</div>
@@ -1047,64 +906,6 @@ function GitHubSection() {
             </div>
           </div>
         </div>
-
-        <div className="rounded-[28px] border border-[#232326] bg-[#111111] p-8">
-          <div className="mb-6 flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
-            <div>
-              <div className="mb-2 text-[11px] uppercase tracking-[0.18em] text-[#71717A]">Activity snapshot</div>
-              <h3 className="text-2xl font-semibold text-[#F5F5F0]">GitHub activity and account scale</h3>
-            </div>
-            <p className="max-w-2xl text-sm leading-relaxed text-[#71717A]">
-              Useful context, but secondary to the repos and reviewed pull requests above.
-            </p>
-          </div>
-
-          <div className="grid gap-8 xl:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] xl:items-start">
-            <div className="overflow-x-auto">
-              <div className="mb-4 flex min-w-max items-center justify-between gap-6">
-                <div className="text-sm font-medium text-[#F5F5F0]">Contribution activity</div>
-                <div className="flex items-center gap-4 text-xs text-[#71717A]">
-                  <div className="flex items-center gap-2">
-                    <div className="h-3 w-3 rounded-sm bg-[#171717]" />
-                    <span>Less</span>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <div className="h-3 w-3 rounded-sm bg-[#C9A86A]/20" />
-                    <div className="h-3 w-3 rounded-sm bg-[#C9A86A]/40" />
-                    <div className="h-3 w-3 rounded-sm bg-[#C9A86A]/60" />
-                    <div className="h-3 w-3 rounded-sm bg-[#C9A86A]/80" />
-                    <div className="h-3 w-3 rounded-sm bg-[#C9A86A]" />
-                  </div>
-                  <span>More</span>
-                </div>
-              </div>
-
-              <div className="flex min-w-max gap-1">
-                {githubSection.contributionWeeks.map((week, weekIndex) => (
-                  <div key={weekIndex} className="flex flex-col gap-1">
-                    {week.map((contributionCount, dayIndex) => (
-                      <div
-                        key={`${weekIndex}-${dayIndex}`}
-                        className={`h-2.5 w-2.5 rounded-sm ${getContributionCellClass(contributionCount)}`}
-                        title={`${contributionCount} contribution${contributionCount === 1 ? '' : 's'}`}
-                        aria-label={`${contributionCount} contribution${contributionCount === 1 ? '' : 's'}`}
-                      />
-                    ))}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="grid gap-4 sm:grid-cols-2">
-              {githubSection.stats.map((stat) => (
-                <div key={stat.label} className="rounded-2xl border border-[#232326] bg-[#0A0A0A] p-5">
-                  <div className="mb-1 text-3xl font-semibold text-[#F5F5F0]">{stat.value}</div>
-                  <div className="text-sm text-[#71717A]">{stat.label}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   )
@@ -1112,7 +913,7 @@ function GitHubSection() {
 
 function Contact() {
   return (
-    <section id="contact" className="scroll-mt-28 border-t border-[#232326] px-6 py-28 xl:px-8">
+    <section id="contact" className="scroll-mt-28 border-t border-[#232326] px-6 py-20 xl:px-8">
       <div className="mx-auto max-w-[1440px]">
         <div className="mx-auto max-w-4xl text-center">
           <div className="mb-6 text-xs font-medium uppercase tracking-[0.2em] text-[#C9A86A]">{contactSection.eyebrow}</div>
@@ -1145,7 +946,7 @@ function Contact() {
                 href={githubLink.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`group rounded-2xl border border-[#232326] bg-[#111111] p-6 transition-colors hover:border-[#C9A86A] ${focusRingClass}`}
+                className={`group rounded-2xl border border-[#232326] bg-[#111111] p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#C9A86A] ${focusRingClass}`}
               >
                 <Github className="mx-auto mb-3 h-6 w-6 text-[#71717A] transition-colors group-hover:text-[#C9A86A]" />
                 <div className="mb-1 text-sm font-medium text-[#F5F5F0]">GitHub</div>
@@ -1158,7 +959,7 @@ function Contact() {
                 href={linkedInLink.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`group rounded-2xl border border-[#232326] bg-[#111111] p-6 transition-colors hover:border-[#C9A86A] ${focusRingClass}`}
+                className={`group rounded-2xl border border-[#232326] bg-[#111111] p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#C9A86A] ${focusRingClass}`}
               >
                 <Linkedin className="mx-auto mb-3 h-6 w-6 text-[#71717A] transition-colors group-hover:text-[#C9A86A]" />
                 <div className="mb-1 text-sm font-medium text-[#F5F5F0]">LinkedIn</div>
@@ -1171,7 +972,7 @@ function Contact() {
                 href={primaryResumeLink.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`group rounded-2xl border border-[#232326] bg-[#111111] p-6 transition-colors hover:border-[#C9A86A] ${focusRingClass}`}
+                className={`group rounded-2xl border border-[#232326] bg-[#111111] p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#C9A86A] ${focusRingClass}`}
               >
                 <FileText className="mx-auto mb-3 h-6 w-6 text-[#71717A] transition-colors group-hover:text-[#C9A86A]" />
                 <div className="mb-1 text-sm font-medium text-[#F5F5F0]">Resume</div>
@@ -1208,7 +1009,6 @@ export default function Home() {
 
       <main id="main-content">
         <Hero />
-        <ProofBar />
         <About />
         <CaseStudies />
         <EngineeringDecisions />

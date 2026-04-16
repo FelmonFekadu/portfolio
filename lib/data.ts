@@ -161,9 +161,7 @@ export const projects = [
     outcome:
       'Shipped as an open-source local-first document QA system with hybrid retrieval, citation grounding, and measurable evaluation metrics.',
     imageGradient: 'linear-gradient(135deg, #065f46 0%, #047857 100%)',
-    ctaLabel: 'View source',
-    secondaryHref: 'https://github.com/felmonon/docagent-studio',
-    secondaryLabel: 'Inspect source',
+    ctaLabel: 'Inspect source',
     proofItems: [
       'Hybrid retrieval: SQLite FTS5 + vector embeddings',
       'Citation-grounded answers via local Ollama models',

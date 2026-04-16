@@ -389,10 +389,10 @@ function Navigation() {
   }, [])
 
   const navItems = [
-    { id: 'about', label: 'About' },
-    { id: 'case-studies', label: 'Work' },
-    { id: 'experience', label: 'Experience' },
-    { id: 'github', label: 'GitHub' },
+    { id: 'about', label: 'About', num: '01' },
+    { id: 'case-studies', label: 'Work', num: '02' },
+    { id: 'experience', label: 'Experience', num: '03' },
+    { id: 'github', label: 'GitHub', num: '04' },
   ]
 
   return (
@@ -407,9 +407,15 @@ function Navigation() {
       <div className="mx-auto flex max-w-[1440px] items-center justify-between gap-6 px-6 py-4 xl:px-8">
         <a
           href="#hero"
-          className={`text-lg font-serif text-[#F5F5F0] transition-colors hover:text-[#C9A86A] ${focusRingClass}`}
+          className={`group inline-flex items-center gap-3 ${focusRingClass}`}
         >
-          Felmon Fekadu
+          <span className="grid h-9 w-9 place-items-center rounded-md border border-[#3A3021] bg-[#171717] font-serif text-[15px] leading-none text-[#C9A86A] transition-colors group-hover:border-[#C9A86A]">
+            ff
+          </span>
+          <span className="hidden flex-col leading-tight md:flex">
+            <span className="text-sm font-medium text-[#F5F5F0] transition-colors group-hover:text-[#C9A86A]">Felmon Fekadu</span>
+            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#71717A]">Engineer · Boulder, CO</span>
+          </span>
         </a>
 
         <div className="hidden items-center gap-1 lg:flex">
@@ -418,26 +424,37 @@ function Navigation() {
               key={item.id}
               href={`#${item.id}`}
               aria-current={activeSection === item.id ? 'page' : undefined}
-              className={`rounded-lg px-4 py-2 text-sm transition-all ${focusRingClass} ${
+              className={`group inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition-all ${focusRingClass} ${
                 activeSection === item.id
                   ? 'bg-[#171717] text-[#C9A86A]'
                   : 'text-[#A1A1AA] hover:bg-[#111111] hover:text-[#F5F5F0]'
               }`}
             >
-              {item.label}
+              <span className={`font-mono text-[10px] tracking-[0.1em] ${activeSection === item.id ? 'text-[#C9A86A]/70' : 'text-[#52525B]'}`}>
+                {item.num}
+              </span>
+              <span>{item.label}</span>
             </a>
           ))}
         </div>
 
         <div className="flex items-center gap-3">
+          <span className="hidden items-center gap-2 rounded-full border border-[#2B3A2C] bg-[#0F1A11] px-3 py-1.5 lg:inline-flex">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#7FB38A] opacity-75" />
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#7FB38A]" />
+            </span>
+            <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#7FB38A]">Open to work</span>
+          </span>
+
           {primaryResumeLink ? (
             <a
               href={primaryResumeLink.url}
               target="_blank"
               rel="noopener noreferrer"
-              className={`hidden rounded-lg px-4 py-2 text-sm text-[#A1A1AA] transition-colors hover:text-[#F5F5F0] lg:inline-flex ${focusRingClass}`}
+              className={`hidden rounded-lg px-3 py-2 text-sm text-[#A1A1AA] transition-colors hover:text-[#F5F5F0] lg:inline-flex ${focusRingClass}`}
             >
-              Resume
+              Resume ↗
             </a>
           ) : null}
 
@@ -507,9 +524,11 @@ function Hero() {
               initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.1 }}
-              className="mb-4 text-xs font-medium uppercase tracking-[0.2em] text-[#C9A86A]"
+              className="mb-6 flex items-center gap-3"
             >
-              {heroSection.eyebrow}
+              <span className="font-mono text-[11px] text-[#C9A86A]">00</span>
+              <span className="h-px w-10 bg-gradient-to-r from-[#C9A86A] to-transparent" aria-hidden />
+              <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-[#C9A86A]">{heroSection.eyebrow}</span>
             </motion.div>
 
             <motion.h1
@@ -518,9 +537,19 @@ function Hero() {
               transition={{ duration: 0.55, delay: 0.18 }}
               className="mb-6 max-w-4xl font-serif text-5xl leading-[1.05] text-[#F5F5F0] md:text-6xl xl:text-7xl"
             >
-              I build products that are <span className="text-[#C9A86A]">useful</span>,{' '}
-              <span className="text-[#C9A86A]">fast</span>, and{' '}
-              <span className="text-[#C9A86A]">real</span>.
+              I build products that are{' '}
+              <em className="not-italic text-[#C9A86A]">
+                <span className="italic">useful</span>
+              </em>
+              ,{' '}
+              <em className="not-italic text-[#C9A86A]">
+                <span className="italic">fast</span>
+              </em>
+              , and{' '}
+              <em className="not-italic text-[#C9A86A]">
+                <span className="italic">real</span>
+              </em>
+              <span className="text-[#C9A86A]">.</span>
             </motion.h1>
 
             <motion.p
@@ -565,14 +594,15 @@ function Hero() {
               initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.42 }}
-              className="flex flex-wrap gap-3"
+              className="flex flex-wrap items-stretch gap-x-10 gap-y-4 border-t border-[#232326] pt-6"
             >
               {heroSignals.map((item, index) => (
-                <div key={item.label} className="flex items-center gap-3">
-                  {index > 0 ? <div className="h-px w-6 bg-[#232326]" aria-hidden /> : null}
+                <div key={item.label} className="flex items-baseline gap-3">
+                  {index > 0 ? <div className="hidden h-10 w-px self-center bg-[#232326] md:block" aria-hidden /> : null}
+                  <span className="font-mono text-[10px] text-[#52525B]">{String(index + 1).padStart(2, '0')}</span>
                   <div>
-                    <div className="font-serif text-2xl leading-none text-[#F5F5F0]">{item.value}</div>
-                    <div className="mt-1 text-[11px] uppercase tracking-[0.18em] text-[#71717A]">{item.label}</div>
+                    <div className="font-serif text-3xl italic leading-none text-[#F5F5F0]">{item.value}</div>
+                    <div className="mt-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-[#71717A]">{item.label}</div>
                   </div>
                 </div>
               ))}
@@ -585,45 +615,80 @@ function Hero() {
             transition={{ duration: 0.7, delay: 0.28 }}
             className="xl:col-span-5"
           >
-            <div className="rounded-[28px] border border-[#232326] bg-[#111111] p-7 shadow-[0_30px_80px_rgba(0,0,0,0.22)]">
-              <h2 className="mb-6 font-serif text-2xl leading-tight text-[#F5F5F0]">Open real work first</h2>
+            <div className="overflow-hidden rounded-[20px] border border-[#232326] bg-[#0D0D0F] shadow-[0_40px_120px_rgba(0,0,0,0.5)]">
+              <div className="flex items-center justify-between border-b border-[#232326] bg-[#0A0A0C] px-5 py-3">
+                <div className="flex items-center gap-2">
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#3F2828]" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#3F3528]" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#283F2C]" />
+                </div>
+                <span className="font-mono text-[11px] text-[#52525B]">~ / open-work</span>
+                <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#7FB38A]">live</span>
+              </div>
 
-              <div className="space-y-3">
-                {heroProjects.map((project) => (
+              <div className="space-y-3 p-5">
+                <div className="flex items-center gap-2 font-mono text-[11px] text-[#71717A]">
+                  <span className="text-[#7FB38A]">$</span>
+                  <span>ls --pinned</span>
+                  <span className="caret" aria-hidden />
+                </div>
+
+                {heroProjects.map((project, index) => (
                   <a
                     key={project.title}
                     href={project.live || project.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`group flex items-center justify-between gap-4 rounded-xl border border-[#232326] bg-[#0A0A0A] px-4 py-3 transition-all duration-300 hover:-translate-y-px hover:border-[#C9A86A] ${focusRingClass}`}
+                    className={`group flex items-center justify-between gap-4 rounded-lg border border-transparent bg-[#0A0A0C] px-3 py-2.5 transition-all duration-200 hover:border-[#C9A86A]/60 hover:bg-[#111114] ${focusRingClass}`}
                   >
-                    <div className="min-w-0">
-                      <div className="text-sm font-medium text-[#F5F5F0]">{project.title}</div>
-                      <div className="mt-0.5 truncate text-xs text-[#71717A]">{project.category}</div>
+                    <div className="flex min-w-0 items-baseline gap-3">
+                      <span className="font-mono text-[10px] text-[#52525B]">{String(index + 1).padStart(2, '0')}</span>
+                      <div className="min-w-0">
+                        <div className="text-sm font-medium text-[#F5F5F0]">{project.title}</div>
+                        <div className="mt-0.5 truncate font-mono text-[10px] uppercase tracking-[0.16em] text-[#52525B]">
+                          {project.category}
+                        </div>
+                      </div>
                     </div>
-                    <ArrowRight className="h-4 w-4 flex-shrink-0 text-[#71717A] transition-colors group-hover:text-[#C9A86A]" />
+                    <ArrowRight className="h-3.5 w-3.5 flex-shrink-0 text-[#52525B] transition-all group-hover:translate-x-0.5 group-hover:text-[#C9A86A]" />
                   </a>
                 ))}
 
                 {mergedProof ? (
-                  <a
-                    href={mergedProof.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`group flex items-center justify-between gap-4 rounded-xl border border-[#232326] bg-[#0A0A0A] px-4 py-3 transition-all duration-300 hover:-translate-y-px hover:border-[#7FB38A] ${focusRingClass}`}
-                  >
-                    <div className="min-w-0">
-                      <div className="truncate text-sm font-medium text-[#F5F5F0]">{mergedProof.label}</div>
-                      <div className="mt-0.5 text-xs text-[#7FB38A]">{mergedProof.status}</div>
+                  <>
+                    <div className="flex items-center gap-2 pt-3 font-mono text-[11px] text-[#71717A]">
+                      <span className="text-[#7FB38A]">$</span>
+                      <span>git log --merged</span>
                     </div>
-                    <ExternalLink className="h-4 w-4 flex-shrink-0 text-[#71717A] transition-colors group-hover:text-[#7FB38A]" />
-                  </a>
+                    <a
+                      href={mergedProof.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`group flex items-center justify-between gap-4 rounded-lg border border-transparent bg-[#0A0A0C] px-3 py-2.5 transition-all duration-200 hover:border-[#7FB38A]/50 hover:bg-[#0F1A11] ${focusRingClass}`}
+                    >
+                      <div className="flex min-w-0 items-baseline gap-3">
+                        <span className="font-mono text-[10px] text-[#7FB38A]">●</span>
+                        <div className="min-w-0">
+                          <div className="truncate text-sm font-medium text-[#F5F5F0]">{mergedProof.label}</div>
+                          <div className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.16em] text-[#7FB38A]/80">
+                            {mergedProof.status}
+                          </div>
+                        </div>
+                      </div>
+                      <ExternalLink className="h-3.5 w-3.5 flex-shrink-0 text-[#52525B] transition-colors group-hover:text-[#7FB38A]" />
+                    </a>
+                  </>
                 ) : null}
               </div>
 
-              <div className="mt-6 flex flex-wrap gap-2 border-t border-[#232326] pt-5">
+              <div className="flex flex-wrap gap-1.5 border-t border-[#232326] bg-[#0A0A0C] px-5 py-4">
                 {heroSection.stackFocus.map((tech) => (
-                  <TechTag key={tech}>{tech}</TechTag>
+                  <span
+                    key={tech}
+                    className="rounded border border-[#232326] bg-[#111114] px-2 py-1 font-mono text-[10px] uppercase tracking-[0.12em] text-[#A1A1AA]"
+                  >
+                    {tech}
+                  </span>
                 ))}
               </div>
             </div>
@@ -982,12 +1047,27 @@ function Contact() {
           </div>
         </div>
 
-        <div className="mt-24 flex flex-col gap-4 border-t border-[#232326] pt-8 text-sm text-[#71717A] lg:flex-row lg:items-center lg:justify-between">
-          <div>© 2026 Felmon Fekadu. Built with care.</div>
-          <div className="flex flex-wrap items-center gap-4 lg:gap-6">
-            <span>{contactSection.footerLocation}</span>
-            <span className="hidden lg:inline">•</span>
-            <span>{contactSection.footerAvailability}</span>
+        <div className="mt-24 grid gap-6 border-t border-[#232326] pt-10 lg:grid-cols-3 lg:items-end">
+          <div className="flex items-center gap-3">
+            <span className="grid h-10 w-10 place-items-center rounded-md border border-[#3A3021] bg-[#171717] font-serif text-base text-[#C9A86A]">
+              ff
+            </span>
+            <div>
+              <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#52525B]">Index · 2026</div>
+              <div className="text-sm text-[#A1A1AA]">© Felmon Fekadu — all rights reserved</div>
+            </div>
+          </div>
+
+          <div className="space-y-1.5 text-sm text-[#71717A] lg:text-center">
+            <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#52525B]">Locale</div>
+            <div className="text-[#A1A1AA]">{contactSection.footerLocation}</div>
+            <div className="font-mono text-[11px] text-[#52525B]">{contactSection.footerAvailability}</div>
+          </div>
+
+          <div className="flex flex-col gap-1.5 lg:items-end">
+            <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#52525B]">Built with</div>
+            <div className="text-sm text-[#A1A1AA]">Next.js · Tailwind · Framer Motion</div>
+            <div className="font-mono text-[11px] text-[#52525B]">Hosted on Vercel · static edge</div>
           </div>
         </div>
       </div>
